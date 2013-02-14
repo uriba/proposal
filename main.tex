@@ -1,0 +1,275 @@
+\documentclass{report}
+\usepackage{color,soul,amsmath}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\title{Exploring the quantitative dependence of cell physiology, gene expression and proteome composition on growth rate in model microorganisms}
+\author{Uri Barenholz}
+\date{February 2013}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+Single cell organisms are probably the simplest form of life accessible to science today.
+However, complete understanding of their workings is still far from reached.
+The ability of such organisms to self-replicate given a constant supply of simple substances is one of the simplest experimental setups that can be used to investigate the workings of a living system, albeit under a relatively simple environmental challenge.
+The reasoning behind this experimental setting is that, at the absence of external changes to the environment, an organism should “converge” to a constant state (or replication cycle).
+At this state the growth rate remains constant and the relative amounts of intracellular components (up to changes related to the cell cycle) are also maintained \cite{Campbell1957}.
+Such setups have been used for decades \cite{Schaechter1958,Maaloe1969,Pedersen1978a} to explore the details of metabolism, resource allocation and composition of single celled organisms under so-called “balanced growth” or, more accurately, logarithmic balanced growth.
+We note that the definition of logarithmic balanced growth is somewhat more restrictive than “(mid) exponential growth” as it implies not only constant growth rate but also semi-constant cell composition.
+
+Advances in technology allowed for continuous increase in the resolution and breadth of measurements of the different components of cells under such conditions starting from the mere growth rate and wet/dry mass ratio, moving onto composition in terms of chemical elements, macromolecular composition and in recent years mRNA profiling and complete proteomic data using various methods.
+
+As measurement techniques evolved and more details have been exposed, models and formulas of finer detail were devised to explain and predict various physiological aspects of growing cells \cite{Lerman2012,Karr2012}.
+Advances in computational power allow for increasing complexity of simulation of various aspects of the cell and notably the introduction of Flux Balance Analysis and its various modifications as a tool for assessment of the metabolome in different states.
+\section{Motivation for the understanding of physiology under balanced growth}
+One of the basic features of any living system is its composition.
+As such, attempts at identifying and characterizing the composition of living organisms have been a major part of biological research\cite{Schaechter1958,Bremer1987}.
+Microorganisms have been playing a key role of this research ever since their discovery.
+Balanced growth preserves cellular composition along time while increasing the amount of living matter.
+As such, it is a very attractive target for research.
+It is both relatively easy to study (due to its stability) and encompasses one of life's most interesting features - the ability to reproduce.
+
+In the context of synthetic biology, one of the key promises of this field is to allow the synthesis of various high-value chemical compounds in an environmentally clean and economically efficient manner.
+Realization of this vision is still in progress and the development of industrial processes using microorganisms at their core is a challenging task.
+Lack of knowledge and tools that can assess the impact of the introduction of synthetic pathways into organisms is one of the obstacles being faced in this process.
+The construction of a model for a functioning living organism (at balanced growth) is a valuable building block in the process of achieving such knowledge as it allows for assessment of effects of different modifications that can then be introduced into the system.
+In recent years there have been few attempts to create such “whole cell” simulations \cite{Lerman2012,Karr2012,Reed2004,Schellenberger2011a}.
+As these works suggest, enough data and understanding have been experimentally collected to allow valuable insights to be drawn out of such models.
+\section{Research aims}
+\begin{enumerate}
+\item Develop a model than can relate various physiological characteristics of the cell to the growth rate induced when at balanced growth.
+The model will take into account various environmental conditions.
+The model will focus on the following properties:
+\begin{enumerate}
+\item Overall macromolecular composition
+\item Gene expression
+\item Proteome composition
+\item Cell size
+\end{enumerate}
+\item Collect measurements of promoter libraries and/or proteome composition under various growth conditions and use them to validate the model experimentally (to be done in collaboration with Leeat Yankielowicz-Keren from the Segal lab in S.Cerevisiae and Guy Aidelberg from the Alon lab for E.Coli).
+\item Perform analysis on optimal resource utilization given both experimental expression measurements and insights from the model.
+\end{enumerate}
+\section{Workplan components}
+\begin{enumerate}
+\item Develop robust methods to calculate growth rate and gene expression level for batch cultures.
+\item Collect accurate gene expression data under different growth conditions spanning a wide range of growth rates (in E.Coli and S. Cerevisiae , in collaboration with the Segal and Alon labs).
+\item Investigate the connection between the expression of various subsystems/clusters of genes and the growth rate, possibly giving rationale for the correlations observed.
+\item Integrate the data and correlations observed to a model that can be used to predict the physiological condition(macromolecular composition, gene expression levels) under new environmental conditions.
+\item Compare the results to the predictions made by various existing models (specifically \cite{Lerman2012,Karr2012}).
+\item Explore methods to combine thermodynamical data with existing whole-cell models.
+\item *Investigate alternative experimental methods for measurement of growth rate and gene expression.
+\end{enumerate}
+\section{Preliminary results}
+\subsection{Exploring balanced growth in batch cultures}
+\subsubsection{Growth rate assessment procedure}
+\label{growth-rate}
+The ability to measure various properties of the target microorganisms when at balanced growth requires the ability to put them in this condition.
+Our current experimental setup uses 96-well plates in which cultures are grown and therefore requires the ability to identify the stage of balanced growth and quantify the growth rate during this stage.
+
+A naive approach will be to take OD (optical density) measurements at constant time intervals, look at intervals including a few (5, for the sake of the argument) such measurements, take the logarithm of the measured values and perform a linear regression to find the slope of a line that best approximates this measurements.
+The slope of the line will be the growth rate.
+
+This method has a few issues that need to be addressed:
+\begin{enumerate}
+\item The background OD must be determined and subtracted as otherwise the data will be severely distorted when transformed to log scale.
+\item Detector noise can affect the estimate significantly - especially at low OD values.
+\item Outliers (that can be caused due to occasional air-bubbles, scratches or misplacements of the plate in the reader etc.) can potentially affect the estimated growth rate.
+\item Under different conditions the growth during the time period measured can vary substantially and may therefore create a systematic error depending on the growth rate.
+\item Changes in medium composition due to the growth and initial state of the organisms (that are typically transferred from overnight cultures in stationary phase, potentially from different media than the one the are transferred to) result in non-uniform growth that typically goes through several stages, requiring a method to identify and verify the existence of a balanced growth stage.
+\end{enumerate}
+In order to overcome these issues and allow for large automatic assays we have introduced the following algorithm and experimental setup:
+\begin{enumerate}
+\item Each plate includes wells that contain just the growth media (hereafter referred to as “blank” wells).
+Mean OD measurements of these wells are used to determine the background OD level.
+\item Calculation of the standard deviation of measurements of the blank wells is used to estimate the detector noise.
+\item The background is subtracted from each OD measurement of wells in the plate and if the resulting value is less than two times the standard deviation - then the value is being rounded up to this number (two times the standard deviation).
+This procedure filters out very low values that can potentially cause diversion of solutions.
+\item Initial dilution from an overnight culture is at least 1:2500.
+Assuming stationary OD is about 0.5, this dilution results in an initial OD of approx. 0.0002 which is about 16 times lower than the typical detection noise in our system.
+This high dilution ensures that once a signal is detected, the culture is already at balanced exponential growth.
+For different types of microorganisms, media or detectors, the rule of thumb is to use dilution that will result in 4-7 generations before the culture first crosses the detection threshold.
+\item Relevant period for analysis is calculated by dropping all measurements following the one with the highest measured value and all measurements preceding the last one with minimal measured value.
+This “trimming” procedure removes artifacts caused due to vapor accumulation and initial noise (usually due to pipetting) as well as irrelevant effects occurring at stationary phase.
+\item For each 6 consecutive measurements the logarithm of the measured values is taken and a linear fit is performed.
+In order to reduce the effect of outlier measurements the fit uses trimmed-least-squares and allows up to two outlier measurements to be discarded.
+the result is thus the optimal linear approximation of four points out of the original six-point sample.
+\item As a safety measure - the same fit strategy is used for the expected two generations following initial detection (two generations imply the growth of the OD by 4-fold, which is easy to determine).
+The two calculated growth rates are compared and allowed to vary by less than 5%.
+\end{enumerate}
+Preliminary results show this method to give relatively stable results of growth rate \hl{(data and figures needed)} as can be seen in the following graph.
+The time of balanced growth is selected as the pre-defined number of generations, \hl{g=2?}, following initial detection.
+The verification that the growth is indeed balanced during this phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
+\subsubsection{Protein level and promoter activity measurement}
+Two features that are of interest for the modeling of a cell’s proteome are the relative protein levels and the corresponding promoter activities.
+Both features are hard, sometimes impossible, to measure directly without bias.
+The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
+However, there is no canonical form or protocol for the inference of these features based on this experimental setup.
+Following a survey done in a few labs (The Milo lab, Alon lab and Segal lab) our current estimate of promoter activity measures the protein accumulation rate.
+This is done through calculating the difference in fluorescence level during the maximal growth rate time interval and dividing it by the sum of the OD measurements during that interval (as is done in the Segal lab).
+This estimate can be formally defined as:
+\[
+P_a(t_1,t_2)=\frac{fl(t_2)-fl(t_1)}{\int_{t_1}^{t_2}{OD dt}}
+\]
+And is mathematically equivalent (up to a constant) to the standard definition of:
+\[
+P_a=\frac{dfl/dt}{OD}
+\]
+We note that under our experimental setup the measured values correspond to protein accumulation rate and not strictly to production rate as they include effects of degradation.
+The main reason to use this way of calculation is that it avoids issues of approximation of the derivative of the fluorescence, an approximation that must use some assumptions regarding the underlying function.
+This method also averages out noise in the OD measurements as it sums over a few measurements decreasing the effect of outliers on the final result.
+We are currently evaluating an alternate method that will estimate protein level, instead of promoter activity.
+The new method will be based upon calculating the differences between the offsets of linear fits in log-scale for the fluorescence and absorbance.
+This procedure involves the following steps:
+\begin{enumerate}
+\item Calculate linear fit on the background-subtracted logarithm of the fluorescence and absorbance measurements (in a similar manner to the one described in section \ref{growth-rate} above).
+\item Verify the calculated slopes are the same (up to a predefined threshold) implying both quantities (the fluorescence and the absorbance) increase at the same rate - an indication for balanced growth.
+\item Use the offsets calculated to estimate the ratio of fluorescence to absorbance, inferring the ratio of protein to biomass.
+\end{enumerate}
+The advantages of such a method are expected to be:
+\begin{enumerate}
+\item Verification that the culture is in balanced growth (via the enforcement of an upper bound on the allowed variance between the calculated growth rate of the fluorescence and the absorbance measurements).
+\item The measured quantity corresponds to protein abundance and not protein production, which is a more interesting biological feature.
+\item Noise reduction of the fluorescence measurements, as a robust-fit procedure across multiple measurements is used.
+\end{enumerate}
+A possible disadvantage of this method is that it is unclear which of the two quantities, protein level or promoter activity, stabilizes faster and maintains greater stability when the cells adapt to balanced growth.
+\subsection{A model for estimating the effect of resource allocation on protein accumulation rates}
+When comparing promoter activity or gene expression data across different growth conditions one finds that nearly all promoters change their activity.
+However - detailed examination of this change reveals that the genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
+
+In the following section we extend the analysis of the implications of having a limited production capacity, as is suggested in \cite{Leeat2013}.
+We postulate that a large fraction of the changes observed in promoter activity and gene expression can be explained by a passive mechanism.
+Putting this assumption to test and obtaining more data about protein production profiles under different conditions is one of the aims of this research.
+
+As a start we describe the cell as a biomass-generating machine.
+We make the assumption that, when at balanced growth, the ratio of protein to biomass remains constant (under the same growth condition.
+This ratio is known to change somewhat under different growth conditions \cite{Bremer1987}.
+
+We use the following notation:
+\begin{description}
+\item[$P$] Total protein amount (in culture, mass).
+\item[$B$] Total biomass amount (of culture, mass).
+\item [$dP/dt$] Rate of protein production (in culture, mass/time).
+\item [$dB/dt$] Rate of biomass production (in culture, mass/time).
+\item [$g$] Growth rate ($time^{-1}$).
+\end{description}
+We note that by definition:
+\[ g=\frac{dB/dt}{B}\]
+A corollary of the above equation is that for any biochemical entity $Q$ whose fraction out of the biomass $r_Q$ is constant (e.g. hl{XXX}), one gets that:
+\subsubsection{Corollary}
+If
+\[\frac{Q}{B}=r_Q\]
+is constant then:
+\begin{equation}
+\label{global-gr}
+g=\frac{dB/dt}{B}=\frac{d(r_QB)/dt}{r_QB}=\frac{dQ/dt}{Q}
+\end{equation}
+Namely: The total rate of Q’s production divided by the total amount of Q is equal to the growth rate as long as Q’s ratio to the total biomass is constant.
+This is, in fact, the definition of balanced growth \cite{Campbell1957}.
+
+Applying equation \ref{global-gr} to the total protein production, denoting by $r$ the ratio of total protein to biomass, one gets that:
+\[g=\frac{dP/dt}{P}=\frac{dP/dt}{rB}\rightarrow\frac{dP/dt}{B}=rg\]
+The last term ($\frac{dP/dt}{B}$) has an interesting biological interpretation.
+It is the protein production capacity of the culture per biomass unit.
+
+We note that, again using equation \ref{global-gr}, if one assumes that the composition of the proteome remains constant under a given growth condition then for each protein $P_i$ it holds that:
+\[g=\frac{dP_i/dt}{P_i}\]
+That is, the production rate of protein $i$ divided by the amount of the protein in the biomass is equal to the growth rate.
+
+This result suggests that the observed promoter activity of $P_i$ that is usually operatively defined as (though it is understood that this includes effects of the amount of the translation machinery and not only promoter effects):
+\[A_i=\frac{dP_i/dt}{B}=\frac{dP_i/dt}{P_i}\frac{P_i}{B}=g\frac{P_i}{B}=rg\frac{P_i}{P}\]
+Depends, by definition, both on the growth rate and on $P_i$’s fraction out of the total biomass (or out of the total protein in the biomass).
+In light of this observation we aim to derive an “intrinsic”, growth-condition independent (meaning growth-rate and protein-to-biomass ratio independent), promoter activity measure.
+A measure that, once determined, can be used to calculate the observed promoter activity for a given steady growth condition by taking into account the growth rate and proteome composition under this condition.
+\subsubsection{The passive allocation model}
+We explore a model where the majority of promoters are constitutively expressed, meaning they have no active regulation whatsoever but only some constant intrinsic “strength”.
+We assume that regulated promoters can only have a few, discrete, transcriptionally controlled “strengths” (On-Off and rarely some intermediate states as well).
+Despite its discreteness, such a model will exhibit continuous changes in the observed production rates due to the effects of growth-rate and protein composition described above.
+
+According to our model the cell senses its growth environment and, for those promoters that can be regulated, decides in a discrete fashion on their expression strength (out of the limited set of strengths available for each such promoter).
+The outcome of this process is a “task list” of genes to express, where each gene has an associated intrinsic strength.
+For unregulated genes this strength is constant (per gene) and for regulated genes it is one of a finite subset of possible strengths.
+Biologically, this list takes the form of active/ready-to-be-transcribed promoters.
+This “task list” is then being processed by the transcription-translation machinery.
+We assume this machinery operates at the maximum capacity, given the existing growth conditions, to express the genes.
+The intrinsic strengths represent a partition function (or relative expression) of different genes with respect to one another and thus determines the final ratios between the different proteins.
+
+Formally, we define the intrinsic activity level of promoter $i$ under condition $c$ as:
+\[\Gamma^c_i=\delta_i+a^c_i\beta_i ; a^c_i\in \{a_i\}\]
+where $\delta_i$ is the promoter basal level and, for each promoter with active regulation, there is a finite set of activation levels {0,...,1} out of which one,$a^c_i$, is used under condition $c$.
+We note that such an intrinsic activity value, $\Gamma^c_i$, can be the combined result of RBS-sequence, RNA-polymerase affinity (that can be discretely modulated by the binding of transcription factors) or other (non-context dependent) mechanisms.
+
+We postulate that the activity level of promoter $i$ under condition $c$ will be:
+\begin{equation}
+\label{cond-act}
+A^c_i=r_cg_c\frac{\Gamma^c_i}{\norm{\vec{\delta}+\vec{a^c}I\vec{\beta}}}=r_cg_c\frac{\Gamma^c_i}{\sum_{j\in P}\Gamma^c_j}
+\end{equation}
+(Where the middle term uses vector notation with $I$ being the identity matrix).
+
+An important point one needs to pay attention to here is that the composition of the proteome under condition c (namely the denominators of the middle and right hand sides) may change between different growth conditions.
+However, these changes are entirely encapsulated in the condition specific $\vec{a^c}$ vector of the discrete activation levels.
+One of our aims in this research is to try and test to what extent this assumption holds.
+\subsubsection{Deriving an explicit expected activity level}
+In order to test the proposed model we need to calculate what the expected activity level under our model should be.
+The term we derived above includes the sum over the static activity levels of all promoters under condition c.
+Using this equation is therefore somewhat impractical as the sum needs to be determined.
+We continue to show how this term can be eliminated to get an observed activity level that depends only on $\Gamma^c_i$ itself.
+
+We make two assumptions:
+\begin{enumerate}
+\item The translation rate is constant.
+\item There is a set of genes, $G_t$ , that produce the translation machinery, and these genes are unregulated (meaning their expression level is not under active regulation).
+\end{enumerate}
+Under these assumptions we denote the sum of intrinsic strengths of the unregulated, translation-machinery producing genes by:
+\[\Omega=\sum_{i \in G_t}\Gamma_i=\sum_{i \in G_t}\delta_i\]
+Note that, as these genes are unregulated, no specific activity levels get involved in the sum.
+This term is therefore constant across different conditions.
+
+Next we make the following observation:
+As these genes encode the translation mechanism proteins then, assuming constant translation rate, there is a constant time $t_{tr}$ that this mechanism takes to translate its own genes.
+For simplicity one can think about the time it takes a ribosome to translate the equivalent of its own proteins.
+Note that when a cell doubles itself, every ribosome needs to translate at least the equivalent of its own proteins plus some portion of the rest of the proteome.
+Therefore, the total time it takes the translation mechanism to produce a desired proteome under condition c, and thus to double the biomass, assuming constant translation rate, is:
+\[\tau_c=\frac{\sum_{j\in P}\Gamma^c_j}{\Omega}t_{tr}\]
+Remebering that by  definition $g=\ln(2)/\tau$ yields:
+\[g_c=\ln(2)\frac{\Omega}{t_{tr}\sum_{j\in P}\Gamma^c_i}\]
+Substituting this result in the activity level equation (equation \ref{cond-act}) for condition c we get that:
+\begin{equation}
+\label{ind-act}
+A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j\in P}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_i}{\Omega}\frac{\Omega}{\sum_{j\in P}\Gamma^c_j}=r_c g_c^2\frac{t_{tr}}{\ln(2)}\frac{\Gamma^c_i}{\Omega}
+\end{equation}
+Leaving us with an observed activity level that depends linearly on the protein/biomass ratio, the square of the growth rate, some condition-independent constants and the condition specific intrinsic strength of the relevant promoter.
+\subsubsection{Accounting for variable translation rate}
+As noted above, the preceding analysis assumes the translation rate remains constant under different growth rates.
+We note that this assumption was used in exactly one place, that is, in the assertion that $t_{tr}$ is constant, as that is the only place where there is a direct connection between intrinsic strengths and translation times.
+Thus, relieving this assumption and instead assuming that the translation rate is some function of the growth rate, $f$, one gets that the time the translation mechanism takes to translate itself is simply:
+\begin{equation}
+t_{tr}=f(g_c)
+\end{equation}
+Incorporating this term into the activity level equation (equation \ref{ind-act}) we conclude that in such cases:
+\begin{equation}
+A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j\in P}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_i}{\Omega}\frac{\Omega}{\sum_{j\in P}\Gamma^c_j}=r_c g_c^2\frac{f(g_c)}{\ln(2)}\frac{\Gamma^c_i}{\Omega}
+\end{equation}
+It is reasonable to expect the dependence of the translation rate on the growth rate to be a monotonic, slowly decreasing function.
+In such a case, the resulting final relation of the production rate to the growth rate should therefore be a sub-quadratic relation.
+\subsubsection{Validation of the model for Ribosomal proteins}
+As a test case for the model and our ability to set up an experimental system sensitive enough to test it, Leeat Y. assembled a plate spanning various media with a strain of S. Cerevisiae expressing GFP fused to a ribosomal promoter.
+Our analysis shows that, indeed, the accumulation rate scales like the growth rate squared.
+One should note that there are other explanations for this dependence and therefore other promoters will be tested as well.
+\subsection{Correlating growth rate and the protein to biomass ratio}
+A simple calculation shows that the protein to biomass ratio is expected to change as a function of the growth rate.
+As Ribosomes are composed of 1:2 ratio of protein to RNA then, under the assumption of constant translation rate, one expects that the ribosomal protein fraction out of the proteome will be:
+\[\alpha_R=\frac{t_{tr}}{\tau}=t_{tr}g/\ln(2)\]
+And therefore, the ribosomal RNA (rRNA) amount relative to the protein amount should follow:
+\[\alpha_{rRNA}=2\alpha_R=2t_{tr}g/\ln(2)\]
+Meaning it is an increasing function of $g$.
+Experimental data supports this model as it shows increase in RNA/protein ratio as growth rate increases.
+Note that the other factors needed for calculation of the global macromolecular composition are the relative fractions of other cellular components (lipids, DNA, small metabolites, all of which are expected to stay relatively constant across different growth rates) and the relative fraction of rRNA out of the total RNA in the cell (which is commonly cited as being ~ 85\% as long as growth rates are not extremely slow \cite{Bremer1987,goldberger1979biological}).
+
+We aim to measure the RNA to protein ratio to check the validity of this prediction.
+\bibliographystyle{plain}
+\bibliography{library}
+\end{document}
