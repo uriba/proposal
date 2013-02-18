@@ -65,44 +65,38 @@ The model will focus on the following properties:
 \end{enumerate}
 \section{Preliminary results}
 \subsection{Exploring balanced growth in batch cultures}
+Although logarithmic balanced growth is well defined theoretically, it remains unclear if and how real cultures can exist in this phase.
+
+One device that is commonly used for long term growth of cultures is a chemostat.
+Chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
+They therefore allow continous growth over long periods of time.
+However, it is unclear whether growth under such conditions is indeed balanced.
+This is due to the fact that the culture converges to being under some limiting nutrient concentration.
+When such a limiting concentration is reached, the growth of the culture is slowed down and therefore the logarithmic balanced growth phase breaks.
+
+Another way of apporximating balance growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
+One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such setups.
+The experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
+
+Being able to identify logarithmic balanced growth given such a setup (if indeed it occures) is a valuable building block for extracting various quantitative data about different bacterial strains under different nutrients.
+It should allow for good reproducibility and insightful comparisons that are hard to obtain otherwise.
 \subsubsection{Growth rate assessment procedure}
 \label{growth-rate}
-The ability to measure various properties of the target microorganisms when at balanced growth requires the ability to put them in this condition.
-Our current experimental setup uses 96-well plates in which cultures are grown and therefore requires the ability to identify the stage of balanced growth and quantify the growth rate during this stage.
+A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
+As such, accurate assessment of growth rate is required.
 
-A naive approach will be to take OD (optical density) measurements at constant time intervals, look at intervals including a few (5, for the sake of the argument) such measurements, take the logarithm of the measured values and perform a linear regression to find the slope of a line that best approximates this measurements.
-The slope of the line will be the growth rate.
+Despite being relatively simple to calculate in theory, in practice, obtaining accurate assessment over time experimentally requires overcoming various experimental obstacles.
+Among others, these include: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
 
-This method has a few issues that need to be addressed:
-\begin{enumerate}
-\item The background OD must be determined and subtracted as otherwise the data will be severely distorted when transformed to log scale.
-\item Detector noise can affect the estimate significantly - especially at low OD values.
-\item Outliers (that can be caused due to occasional air-bubbles, scratches or misplacements of the plate in the reader etc.) can potentially affect the estimated growth rate.
-\item Under different conditions the growth during the time period measured can vary substantially and may therefore create a systematic error depending on the growth rate.
-\item Changes in medium composition due to the growth and initial state of the organisms (that are typically transferred from overnight cultures in stationary phase, potentially from different media than the one the are transferred to) result in non-uniform growth that typically goes through several stages, requiring a method to identify and verify the existence of a balanced growth stage.
-\end{enumerate}
-In order to overcome these issues and allow for large automatic assays we have introduced the following algorithm and experimental setup:
-\begin{enumerate}
-\item Each plate includes wells that contain just the growth media (hereafter referred to as “blank” wells).
-Mean OD measurements of these wells are used to determine the background OD level.
-\item Calculation of the standard deviation of measurements of the blank wells is used to estimate the detector noise.
-\item The background is subtracted from each OD measurement of wells in the plate and if the resulting value is less than two times the standard deviation - then the value is being rounded up to this number (two times the standard deviation).
-This procedure filters out very low values that can potentially cause diversion of solutions.
-\item Initial dilution from an overnight culture is at least 1:2500.
-Assuming stationary OD is about 0.5, this dilution results in an initial OD of approx. 0.0002 which is about 16 times lower than the typical detection noise in our system.
-This high dilution ensures that once a signal is detected, the culture is already at balanced exponential growth.
-For different types of microorganisms, media or detectors, the rule of thumb is to use dilution that will result in 4-7 generations before the culture first crosses the detection threshold.
-\item Relevant period for analysis is calculated by dropping all measurements following the one with the highest measured value and all measurements preceding the last one with minimal measured value.
-This “trimming” procedure removes artifacts caused due to vapor accumulation and initial noise (usually due to pipetting) as well as irrelevant effects occurring at stationary phase.
-\item For each 6 consecutive measurements the logarithm of the measured values is taken and a linear fit is performed.
-In order to reduce the effect of outlier measurements the fit uses trimmed-least-squares and allows up to two outlier measurements to be discarded.
-the result is thus the optimal linear approximation of four points out of the original six-point sample.
-\item As a safety measure - the same fit strategy is used for the expected two generations following initial detection (two generations imply the growth of the OD by 4-fold, which is easy to determine).
-The two calculated growth rates are compared and allowed to vary by less than 5%.
-\end{enumerate}
-Preliminary results show this method to give relatively stable results of growth rate \hl{(data and figures needed)} as can be seen in the following graph.
-The time of balanced growth is selected as the pre-defined number of generations, \hl{g=2?}, following initial detection.
-The verification that the growth is indeed balanced during this phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
+In our work we have developed a procedure that attempts to overcome these issues. 
+The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of trimmed-least-squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements hl\{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
+
+We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessments for a varaiety of growth media.
+
+Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
+If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
+
+Verification that the growth is indeed balanced during a phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
 \subsubsection{Protein level and promoter activity measurement}
 Two features that are of interest for the modeling of a cell’s proteome are the relative protein levels and the corresponding promoter activities.
 Both features are hard, sometimes impossible, to measure directly without bias.
