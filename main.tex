@@ -68,68 +68,58 @@ The model will focus on the following properties:
 Although logarithmic balanced growth is well defined theoretically, it remains unclear if and how real cultures can exist in this phase.
 
 One device that is commonly used for long term growth of cultures is a chemostat.
-Chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
+A comprehensive discussion of chemostats and their workings in beyond the scope of this document.
+Briefly, chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
 They therefore allow continous growth over long periods of time.
 However, it is unclear whether growth under such conditions is indeed balanced.
 This is due to the fact that the culture converges to being under some limiting nutrient concentration.
-When such a limiting concentration is reached, the growth of the culture is slowed down and therefore the logarithmic balanced growth phase breaks.
+When such a limiting concentration is reached, the growth of the culture is slowed down (prior to the next dilution step) and therefore the logarithmic balanced growth phase breaks.
 
-Another way of apporximating balance growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
-One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such setups.
-The experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
+Another way of apporximating balanced growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
+One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such a setup.
+The concrete experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
 
 Being able to identify logarithmic balanced growth given such a setup (if indeed it occures) is a valuable building block for extracting various quantitative data about different bacterial strains under different nutrients.
-It should allow for good reproducibility and insightful comparisons that are hard to obtain otherwise.
-\subsubsection{Growth rate assessment procedure}
+It should allow for good reproducibility and insightful comparisons of phenotipic behaviours that are hard to obtain otherwise.
+\subsubsection{Growth rate assessment}
 \label{growth-rate}
 A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
 As such, accurate assessment of growth rate is required.
 
-Despite being relatively simple to calculate in theory, in practice, obtaining accurate assessment over time experimentally requires overcoming various experimental obstacles.
-Among others, these include: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
+Despite being theoretically simple to calculate, in practice, obtaining accurate assessment over time requires overcoming various experimental obstacles.
+These include, among others: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
 
-In our work we have developed a procedure that attempts to overcome these issues. 
-The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of trimmed-least-squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements hl\{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
+In our work we have developed a procedure that attempts to overcome these issues.
+The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements hl\{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
 
-We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessments for a varaiety of growth media.
+We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment for a varaiety of growth media and organisms.
 
 Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
 If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
 
-Verification that the growth is indeed balanced during a phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
+Further verification that the growth is indeed balanced during a phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
 \subsubsection{Protein level and promoter activity measurement}
-Two features that are of interest for the modeling of a cell’s proteome are the relative protein levels and the corresponding promoter activities.
+Two features that are of interest for the modeling of a cell’s proteome, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
 Both features are hard, sometimes impossible, to measure directly without bias.
+
 The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
 However, there is no canonical form or protocol for the inference of these features based on this experimental setup.
-Following a survey done in a few labs (The Milo lab, Alon lab and Segal lab) our current estimate of promoter activity measures the protein accumulation rate.
-This is done through calculating the difference in fluorescence level during the maximal growth rate time interval and dividing it by the sum of the OD measurements during that interval (as is done in the Segal lab).
-This estimate can be formally defined as:
-\[
-P_a(t_1,t_2)=\frac{fl(t_2)-fl(t_1)}{\int_{t_1}^{t_2}{OD dt}}
-\]
-And is mathematically equivalent (up to a constant) to the standard definition of:
-\[
-P_a=\frac{dfl/dt}{OD}
-\]
-We note that under our experimental setup the measured values correspond to protein accumulation rate and not strictly to production rate as they include effects of degradation.
-The main reason to use this way of calculation is that it avoids issues of approximation of the derivative of the fluorescence, an approximation that must use some assumptions regarding the underlying function.
-This method also averages out noise in the OD measurements as it sums over a few measurements decreasing the effect of outliers on the final result.
-We are currently evaluating an alternate method that will estimate protein level, instead of promoter activity.
-The new method will be based upon calculating the differences between the offsets of linear fits in log-scale for the fluorescence and absorbance.
-This procedure involves the following steps:
-\begin{enumerate}
-\item Calculate linear fit on the background-subtracted logarithm of the fluorescence and absorbance measurements (in a similar manner to the one described in section \ref{growth-rate} above).
-\item Verify the calculated slopes are the same (up to a predefined threshold) implying both quantities (the fluorescence and the absorbance) increase at the same rate - an indication for balanced growth.
-\item Use the offsets calculated to estimate the ratio of fluorescence to absorbance, inferring the ratio of protein to biomass.
-\end{enumerate}
-The advantages of such a method are expected to be:
-\begin{enumerate}
-\item Verification that the culture is in balanced growth (via the enforcement of an upper bound on the allowed variance between the calculated growth rate of the fluorescence and the absorbance measurements).
-\item The measured quantity corresponds to protein abundance and not protein production, which is a more interesting biological feature.
-\item Noise reduction of the fluorescence measurements, as a robust-fit procedure across multiple measurements is used.
-\end{enumerate}
-A possible disadvantage of this method is that it is unclear which of the two quantities, protein level or promoter activity, stabilizes faster and maintains greater stability when the cells adapt to balanced growth.
+Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which is corresponds to the production (or, more accurately, accumulation) rate of the protein.
+
+While these two values are obtained from the same measurements, they are by no means equivalent.
+If one assumes the protein level to follow the classic formula:
+\[ \frac{dP}{dt}=\beta-\alphaP\]
+(Where $\alpha$ is the dilution rate, equivalent to the growth rate, and $\beta$ is the production rate)
+Then the steady-state concentration of the protein becomes:
+\[ P_{st.st}=\frac{\beta}{\alpha}\]
+Showing that the steady state concentration equales the production rate divided by the growth rate.
+
+Monitoring these two properties throughout the growth phase of a culture gives us a chance to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
+In order to achieve these goals we are developing procedures that allow us to extract accurate estimates for the fluorescence and OD values throughtout the growth phase.
+
+Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
+Comparison of the calculated slopes indicates how balanced the protein accumulation is compared with the growh rate.
+The ratio between the calculated offsets of the fit lines measures the ratio of fluorescence to biomass which serves as a proxy for the protein abundance.
 \subsection{A model for estimating the effect of resource allocation on protein accumulation rates}
 When comparing promoter activity or gene expression data across different growth conditions one finds that nearly all promoters change their activity.
 However - detailed examination of this change reveals that the genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
