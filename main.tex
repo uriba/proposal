@@ -86,35 +86,35 @@ It should allow for good reproducibility and insightful comparisons of phenotipi
 A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
 As such, accurate assessment of growth rate is required.
 
-Despite being theoretically simple to calculate, in practice, obtaining accurate assessment over time requires overcoming various experimental obstacles.
+Despite being theoretically simple to calculate, in practice, obtaining accurate growth rate assessment over time requires overcoming various experimental obstacles.
 These include, among others: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
 
 In our work we have developed a procedure that attempts to overcome these issues.
-The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements hl\{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
+The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements \hl{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
 
-We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment for a varaiety of growth media and organisms.
+We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment method for a varaiety of growth media and organisms.
 
 Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
 If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
 
-Further verification that the growth is indeed balanced during a phase is done by verifying no correlation between a sliding subwindow throughout this time and the time itself.
-\subsubsection{Protein level and promoter activity measurement}
-Two features that are of interest for the modeling of a cell’s proteome, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
+Further verification that the growth is indeed balanced during a phase can be done by verifying no correlation between the growth rate at a sliding subwindow throughout this time and the time itself.
+\subsubsection{Protein level and promoter activity measurements}
+Two features that are of interest for modeling the proteome of a cell, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
 Both features are hard, sometimes impossible, to measure directly without bias.
 
 The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
-However, there is no canonical form or protocol for the inference of these features based on this experimental setup.
-Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which is corresponds to the production (or, more accurately, accumulation) rate of the protein.
+However, there is no canonical form or protocol for the inference of these features based on such experimental setup.
+Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which corresponds to the production (or, more accurately, accumulation) rate of the protein.
 
 While these two values are obtained from the same measurements, they are by no means equivalent.
 If one assumes the protein level to follow the classic formula:
-\[ \frac{dP}{dt}=\beta-\alphaP\]
+\[ \frac{dP}{dt}=\beta-\alpha P\]
 (Where $\alpha$ is the dilution rate, equivalent to the growth rate, and $\beta$ is the production rate)
 Then the steady-state concentration of the protein becomes:
 \[ P_{st.st}=\frac{\beta}{\alpha}\]
 Showing that the steady state concentration equales the production rate divided by the growth rate.
 
-Monitoring these two properties throughout the growth phase of a culture gives us a chance to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
+Monitoring these two properties throughout the growth phase of a culture gives us an opportunity to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
 In order to achieve these goals we are developing procedures that allow us to extract accurate estimates for the fluorescence and OD values throughtout the growth phase.
 
 Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
@@ -126,7 +126,7 @@ However - detailed examination of this change reveals that the genes can be subd
 
 In the following section we extend the analysis of the implications of having a limited production capacity, as is suggested in \cite{Leeat2013}.
 We postulate that a large fraction of the changes observed in promoter activity and gene expression can be explained by a passive mechanism.
-Putting this assumption to test and obtaining more data about protein production profiles under different conditions is one of the aims of this research.
+Putting this assumption to test and obtaining more data about protein production profiles under different conditions is one of the aims of our research.
 
 As a start we describe the cell as a biomass-generating machine.
 We make the assumption that, when at balanced growth, the ratio of protein to biomass remains constant (under the same growth condition.
