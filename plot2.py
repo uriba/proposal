@@ -9,7 +9,7 @@ call(["./fig2data", "%s" % file_name_prefix])
 
 def ploti(i):
     nums = []
-    with open('graph%d.csv' % (i),'rb') as csvfile:
+    with open('%s%d.csv' % (file_name_prefix,i),'rb') as csvfile:
         vals = csv.reader(csvfile,delimiter=',',quotechar='"')
         for row in vals:
             nums.append(map(float,row))

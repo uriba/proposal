@@ -105,7 +105,7 @@ pa (Just (abs_a,abs_b)) (Just (fl_a,fl_b)) start length = Just $ (fl (start + le
 pe :: Maybe (Double,Double) -> Maybe (Double,Double) -> NominalDiffTime -> NominalDiffTime -> Maybe Double
 pe Nothing _ _ _ = Nothing
 pe _ Nothing _ _ = Nothing
-pe (Just (abs_a,abs_b)) (Just (fl_a,fl_b)) start length = Just $ (fl start)/(abs (start+length))
+pe (Just (abs_a,abs_b)) (Just (fl_a,fl_b)) start length = Just $ (fl start)/(abs start)
     where
         abs t = 2 ** (abs_a + (realToFrac t)*abs_b)
         fl t = 2 ** (fl_a + (realToFrac t)*fl_b)
