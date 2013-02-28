@@ -113,7 +113,7 @@ main = do
 
     return ()
 
-window_size = 20
+window_size = 10
 
 linspace :: (Fractional a, Enum a) => Int -> (a,a) -> [a]
 linspace len (start,end) = take len $ [start,start+interval..end]
