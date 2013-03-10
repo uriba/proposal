@@ -1,5 +1,5 @@
 from matplotlib.pyplot import plot,show,figure,subplot,ylim,title
-from numpy import linspace
+from numpy import linspace, arange, amax
 from numpy.random import random,normal
 
 fig = figure()
@@ -9,11 +9,22 @@ a1.set_ylabel("Amount")
 title("Logarithmic - non-balanced")
 x = linspace(0,10)
 y = 2**x
-z = abs(normal(0.5,0.2,50)*y)
+rands = normal(0.5,0.2,50)
+z = abs(rands*y)
 a1.plot(x,y,x,z)
+a1.fill_between(x,y,z)
+a1.fill_between(x,z,0,facecolor='green')
 a2 = subplot(122)
-z2 = 0.5*z
-a2.plot(x,z,x,z2)
+z1 = arange (50)
+rands = normal(0.05,0.1,50)
+z1[0] = rands[0]
+for i in range (0,50):
+    z1[i] = z1[i-1]*(1+rands[i])
+z2 = 0.5*z1
+a2.plot(x,z1,x,z2)
+a2.fill_between(x,z1,z2)
+a2.fill_between(x,z2,0,facecolor='green')
+ylim((0,amax(z1)))
 a2.set_xlabel("Time [Hour]")
 a2.set_ylabel("Amount")
 title("Balanced - non-logarithmic")
