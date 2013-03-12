@@ -61,7 +61,7 @@ main = do
 ---------------------------------------
     return ()
 
-window_size = 10
+window_size = 18
 
 get_gr_data :: ColonySample a => (Well -> IO (a RawMeasurement)) -> IO (([String],[String]))
 get_gr_data get_mes = do

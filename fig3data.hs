@@ -78,7 +78,7 @@ blankWell = Well 'e' 1
 
 wells row = map (Well row) [1..12]
 
-rows = ['c'] -- ['a'..'d'] ++ ['f'..'h']
+rows = ['a'..'d'] ++ ['f'..'h']
 
 plates = [0..5]
 
