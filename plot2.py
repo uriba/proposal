@@ -21,13 +21,12 @@ for i in range(1,5):
     anums.append(ploti(i))
 
 a1 = subplot(221)
-a1.plot(anums[0][0],anums[0][1])
-a1.set_xlabel("Time [Hour]")
-a1.set_ylabel("Detected OD")
-a1.text(0.1,0.9,"(1)",horizontalalignment='right',verticalalignment='bottom',transform=a1.transAxes)
+a1.plot(anums[0][2],anums[0][3],"g",anums[0][4],anums[0][5],"r")
+a1.set_ylabel("Detected Fluorescence")
 a1x = a1.twinx()
-a1x.plot(anums[0][2],anums[0][3],"g",anums[0][4],anums[0][5],"r")
-a1x.set_ylabel("Detected Fluorescence")
+a1x.plot(anums[0][0],anums[0][1],"b")
+a1x.set_ylabel("Detected OD")
+a1.text(0.1,0.9,"(1)",horizontalalignment='right',verticalalignment='bottom',transform=a1.transAxes)
 
 a2 = subplot(222)
 a2.plot(anums[1][0],anums[1][1],anums[1][2],anums[1][3],anums[1][4],anums[1][5])
