@@ -74,86 +74,20 @@ In \cite{loven2012} the issue of normalization of microarray measurements is dis
 The authors claim that carful procedures need to be followed in order to correctly identify what part of the expression program changes vs. what measured changes are the result of changes in global cellular parameters.
 This article demonstrates another aspect in which global physiological changes play a role in observed measurements and their analysis.
 
-\section{Research aims}
+\section{Research objectives}
 \begin{enumerate}
 \item Develop a model that relates the expression level of an unregulated gene to the growth rate and global physiological state of the cell.
 \item Assess the extent to which observed gene expression across conditions is the result of global factors vs. specific regulation.
 \item Analyze the tradeoff between optimal resource allocation via specific regulation and passive allocation of resources due to global cellular conditions.
 \end{enumerate}
-\section{Workplan components}
-\begin{enumerate}
-\item Develop robust methods to calculate growth rate and gene expression level for batch cultures.
-\item Collect accurate gene expression data under different growth conditions spanning a wide range of growth rates (in E.Coli and S. Cerevisiae , in collaboration with the Segal and Alon labs).
-\item Investigate the connection between the expression of various subsystems/clusters of genes and the growth rate, possibly giving rationale for the correlations observed.
-\item Integrate the data and correlations observed to a model that can be used to predict the physiological condition(macromolecular composition, gene expression levels) under new environmental conditions.
-\item Compare the results to the predictions made by various existing models (specifically \cite{Lerman2012,Karr2012}).
-\item Explore methods to combine thermodynamical data with existing whole-cell models.
-\item *Investigate alternative experimental methods for measurement of growth rate and gene expression.
-\end{enumerate}
 \section{Preliminary results}
-\subsection{Exploring balanced growth in batch cultures}
-Although logarithmic balanced growth is well defined theoretically, it remains unclear if and how real cultures can exist in this phase.
-
-One device that is commonly used for long term growth of cultures is a chemostat.
-A comprehensive discussion of chemostats and their workings in beyond the scope of this document.
-Briefly, chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
-They therefore allow continous growth over long periods of time.
-However, it is unclear whether growth under such conditions is indeed balanced.
-This is due to the fact that the culture converges to being under some limiting nutrient concentration.
-When such a limiting concentration is reached, the growth of the culture is slowed down (prior to the next dilution step) and therefore the logarithmic balanced growth phase breaks.
-
-Another way of apporximating balanced growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
-One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such a setup.
-The concrete experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
-
-Being able to identify logarithmic balanced growth given such a setup (if indeed it occures) is a valuable building block for extracting various quantitative data about different bacterial strains under different nutrients.
-It should allow for good reproducibility and insightful comparisons of phenotipic behaviours that are hard to obtain otherwise.
-\subsubsection{Growth rate assessment}
-\label{growth-rate}
-A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
-As such, accurate assessment of growth rate is required.
-
-Despite being theoretically simple to calculate, in practice, obtaining accurate growth rate assessment over time requires overcoming various experimental obstacles.
-These include, among others: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
-
-In our work we have developed a procedure that attempts to overcome these issues.
-The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements \hl{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
-
-We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment method for a varaiety of growth media and organisms.
-
-Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
-If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
-
-Further verification that the growth is indeed balanced during a phase can be done by verifying no correlation between the growth rate at a sliding subwindow throughout this time and the time itself.
-\subsubsection{Protein level and promoter activity measurements}
-Two features that are of interest for modeling the proteome of a cell, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
-Both features are hard, sometimes impossible, to measure directly without bias.
-
-The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
-However, there is no canonical form or protocol for the inference of these features based on such experimental setup.
-Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which corresponds to the production (or, more accurately, accumulation) rate of the protein.
-
-While these two values are obtained from the same measurements, they are by no means equivalent.
-If one assumes the protein level to follow the classic formula:
-\[ \frac{dP}{dt}=\beta-\alpha P\]
-(Where $\alpha$ is the dilution rate, equivalent to the growth rate, and $\beta$ is the production rate)
-Then the steady-state concentration of the protein becomes:
-\[ P_{st.st}=\frac{\beta}{\alpha}\]
-Showing that the steady state concentration equales the production rate divided by the growth rate.
-
-Monitoring these two properties throughout the growth phase of a culture gives us an opportunity to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
-In order to achieve these goals we are developing procedures that allow us to extract accurate estimates for the fluorescence and OD values throughtout the growth phase.
-
-Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
-Comparison of the calculated slopes indicates how balanced the protein accumulation is compared with the growh rate.
-The ratio between the calculated offsets of the fit lines measures the ratio of fluorescence to biomass which serves as a proxy for the protein abundance.
-\subsection{A model for estimating the effect of resource allocation on protein accumulation rates}
+\subsection{A model for estimating the effect of resource allocation on protein accumulation rate and protein level}
 When comparing promoter activity or gene expression data across different growth conditions one finds that nearly all promoters change their activity.
-However - detailed examination of this change reveals that the genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
+However - detailed examination of this change reveals that genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
 
-In the following section we extend the analysis of the implications of having a limited production capacity, as is suggested in \cite{Leeat2013}.
-We postulate that a large fraction of the changes observed in promoter activity and gene expression can be explained by a passive mechanism.
-Putting this assumption to test and obtaining more data about protein production profiles under different conditions is one of the aims of our research.
+We find this observation to suggest that promoters and genes have some intrinsic, static, affinity for expression.
+In the following section we extend the analysis of the implications of having a limited production capacity, as is suggested in \cite{Leeat2013} and integrate it with the implications of the existence of such static affinities.
+We postulate that a large fraction of the changes observed in promoter activity and gene expression can be explained by a passive mechanism of competition over resources.
 
 As a start we describe the cell as a biomass-generating machine.
 We make the assumption that, when at balanced growth, the ratio of protein to biomass remains constant (under the same growth condition.
@@ -270,6 +204,62 @@ In such a case, the resulting final relation of the production rate to the growt
 As a test case for the model and our ability to set up an experimental system sensitive enough to test it, Leeat Y. assembled a plate spanning various media with a strain of S. Cerevisiae expressing GFP fused to a ribosomal promoter.
 Our analysis shows that, indeed, the accumulation rate scales like the growth rate squared.
 One should note that there are other explanations for this dependence and therefore other promoters will be tested as well.
+\subsection{Exploring balanced growth in batch cultures}
+Although logarithmic balanced growth is well defined theoretically, it remains unclear if and how real cultures can exist in this phase.
+
+One device that is commonly used for long term growth of cultures is a chemostat.
+A comprehensive discussion of chemostats and their workings in beyond the scope of this document.
+Briefly, chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
+They therefore allow continous growth over long periods of time.
+However, it is unclear whether growth under such conditions is indeed balanced.
+This is due to the fact that the culture converges to being under some limiting nutrient concentration.
+When such a limiting concentration is reached, the growth of the culture is slowed down (prior to the next dilution step) and therefore the logarithmic balanced growth phase breaks.
+
+Another way of apporximating balanced growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
+One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such a setup.
+The concrete experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
+
+Being able to identify logarithmic balanced growth given such a setup (if indeed it occures) is a valuable building block for extracting various quantitative data about different bacterial strains under different nutrients.
+It should allow for good reproducibility and insightful comparisons of phenotipic behaviours that are hard to obtain otherwise.
+\subsubsection{Growth rate assessment}
+\label{growth-rate}
+A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
+As such, accurate assessment of growth rate is required.
+
+Despite being theoretically simple to calculate, in practice, obtaining accurate growth rate assessment over time requires overcoming various experimental obstacles.
+These include, among others: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
+
+In our work we have developed a procedure that attempts to overcome these issues.
+The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements \hl{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
+
+We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment method for a varaiety of growth media and organisms.
+
+Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
+If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
+
+Further verification that the growth is indeed balanced during a phase can be done by verifying no correlation between the growth rate at a sliding subwindow throughout this time and the time itself.
+\subsubsection{Protein level and promoter activity measurements}
+Two features that are of interest for modeling the proteome of a cell, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
+Both features are hard, sometimes impossible, to measure directly without bias.
+
+The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
+However, there is no canonical form or protocol for the inference of these features based on such experimental setup.
+Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which corresponds to the production (or, more accurately, accumulation) rate of the protein.
+
+While these two values are obtained from the same measurements, they are by no means equivalent.
+If one assumes the protein level to follow the classic formula:
+\[ \frac{dP}{dt}=\beta-\alpha P\]
+(Where $\alpha$ is the dilution rate, equivalent to the growth rate, and $\beta$ is the production rate)
+Then the steady-state concentration of the protein becomes:
+\[ P_{st.st}=\frac{\beta}{\alpha}\]
+Showing that the steady state concentration equales the production rate divided by the growth rate.
+
+Monitoring these two properties throughout the growth phase of a culture gives us an opportunity to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
+In order to achieve these goals we are developing procedures that allow us to extract accurate estimates for the fluorescence and OD values throughtout the growth phase.
+
+Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
+Comparison of the calculated slopes indicates how balanced the protein accumulation is compared with the growh rate.
+The ratio between the calculated offsets of the fit lines measures the ratio of fluorescence to biomass which serves as a proxy for the protein abundance.
 \subsection{Correlating growth rate and the protein to biomass ratio}
 A simple calculation shows that the protein to biomass ratio is expected to change as a function of the growth rate.
 As Ribosomes are composed of 1:2 ratio of protein to RNA then, under the assumption of constant translation rate, one expects that the ribosomal protein fraction out of the proteome will be:
