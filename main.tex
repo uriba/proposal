@@ -1,5 +1,5 @@
 \documentclass{report}
-\usepackage{color,soul,amsmath}
+\usepackage{color,soul,amsmath,graphicx}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
 
@@ -209,8 +209,35 @@ A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j\in P}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_
 \end{equation}
 It is reasonable to expect the dependence of the translation rate on the growth rate to be a monotonic, slowly increasing function.
 In such a case, the resulting final relation of the production rate to the growth rate should therefore be a sub-quadratic relation.
-\subsubsection{Validation of the model for Ribosomal proteins}
+\subsubsection{Intermediate conclusions}
+We have developed a model that predicts the protein level and promoter activity for unregulated genes as a function of growth rate.
+Our model employs a 'feed-forward' strategy as was suggested in \cite{Levy2009}.
+It takes a top-down approach and extends the analysis done in \cite{Leeat2013}.
+Our model suggests that the promoter activity scales like the growth rate squared and that the protein level scales like the growth rate.
+These results are the inverse of the claims made at \cite{Klumpp2009a} and \cite{Scott2010a}.
+Our model claims that the relation observed for ribosomal synthesis fraction and ribosomal protein fraction out of the proteome can in fact be extended to other promoters and proteins, as long as they are assumed to be unregulated between conditions.
+It thus adds aditional explenation to the explenations already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \cite{Zaslaver2009a}.
+Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activiy and resulting protein levels, as is claimed by \cite{Berthoumieux2013}.
+\subsection{Growth rate, protein level and promoter activity follow the model when tracked over time}
+One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
+However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
+To test this hypothesis, albeit at non-ideal conditions, we tracked the growth of E.Coli in a batch culture growing in M9 minimal media with 0.2\% glucose.
+The strain grown had a placmid (pTAC) fused to two fluorescent reporter genes (YFP and mCherry).
+At any time-point we calculated the growth rate, the promoter activity and the protein level for each of the proteins.
+The results are shown in figure \ref{time-gr-fig}.
+We identified two phases of relatively constant growth rate, as can be seen in the figure.
+The relative abundance and accumulation rate of the two proteins are maintained in between these two phases.
+However, the absolute level of the proteins scales like the growth rate whereas the accumulation rate scales like the growth rate squared.
+This initial result thus validates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
+It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulate promoters.
+\begin{figure}[h]
+\includegraphics{propfig1.pdf}
+\caption{Comparing growth rate, protein level and promoter activity throughout growth in a batch culture. The ratio between the two proteins is maintained throughout growth. The ratio between the accumulation rate of the two proteins is maintained throughout growth and is equal to the ratio between the protein levels. Changes in growth rate and protein levels are synchronized. Changes in protein level are proportional to changes in growth rate. Changes in promoter activity precede changes in growth rate and protein level by about one hour. Changes in promoter activity are proportional to the square of the changes in growth rate.}
+\label{time-gr-fig}
+\end{figure}
+-------------------------------------------------------------------------------
 As a test case for the model and our ability to set up an experimental system sensitive enough to test it, Leeat Y. assembled a plate spanning various media with a strain of S. Cerevisiae expressing GFP fused to a ribosomal promoter.
+
 Our analysis shows that, indeed, the accumulation rate scales like the growth rate squared.
 One should note that there are other explanations for this dependence and therefore other promoters will be tested as well.
 \subsection{Exploring balanced growth in batch cultures}
