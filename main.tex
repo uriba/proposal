@@ -218,62 +218,60 @@ These results are the inverse of the claims made at \cite{Klumpp2009a} and \cite
 Our model claims that the relation observed for ribosomal synthesis fraction and ribosomal protein fraction out of the proteome can in fact be extended to other promoters and proteins, as long as they are assumed to be unregulated between conditions.
 It thus adds aditional explenation to the explenations already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \cite{Zaslaver2009a}.
 Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activiy and resulting protein levels, as is claimed by \cite{Berthoumieux2013}.
-\subsection{Growth rate, protein level and promoter activity follow the model when tracked over time}
+\subsection{Growth rate, protein level and promoter activity agree with the model when tracked over time}
 One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
 However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
 To test this hypothesis, albeit at non-ideal conditions, we tracked the growth of E.Coli in a batch culture growing in M9 minimal media with 0.2\% glucose.
-The strain grown had a placmid (pTAC) fused to two fluorescent reporter genes (YFP and mCherry).
-At any time-point we calculated the growth rate, the promoter activity and the protein level for each of the proteins.
+The strain grown had a plasmid (pTAC) fused to two fluorescent reporter genes (YFP and mCherry).
+At any time-point we calculated the growth rate, the protein accumulation rate (that is a proxy of the promoter activity) and the protein level for each of the proteins.
 The results are shown in figure \ref{time-gr-fig}.
-We identified two phases of relatively constant growth rate, as can be seen in the figure.
+We identified two phases of relatively constant growth rate, fast growth and slow growth, as can be seen in the figure.
 The relative abundance and accumulation rate of the two proteins are maintained in between these two phases.
 However, the absolute level of the proteins scales like the growth rate whereas the accumulation rate scales like the growth rate squared.
 This initial result thus validates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
-It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulate promoters.
+It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulated promoters.
 \begin{figure}[h]
 \includegraphics{propfig1.pdf}
-\caption{Comparing growth rate, protein level and promoter activity throughout growth in a batch culture. The ratio between the two proteins is maintained throughout growth. The ratio between the accumulation rate of the two proteins is maintained throughout growth and is equal to the ratio between the protein levels. Changes in growth rate and protein levels are synchronized. Changes in protein level are proportional to changes in growth rate. Changes in promoter activity precede changes in growth rate and protein level by about one hour. Changes in promoter activity are proportional to the square of the changes in growth rate.}
+\caption{Comparing growth rate, protein level and proein accumulation rate throughout growth in a batch culture.
+(A) Growth rate as a function of time.
+Two phases of constant growth are marked - Maximal growth and slow growth.
+The growth rate changes by a factor of about 2/3 between the two phases.
+(B) Protein level as a function of time.
+The ratio between the levels of the two proteins remains relatively constant and is approximately 2:1.
+The absolute level of each protein decreases during the same time, and in the same proportion as the growth rate.
+(C) Protein accumulation rate as a function of time.
+Changes in the accumulation rate (reflecting changes in promoter activity) precede changes in growth rate and protein level by about 1.5 hours.
+The ratio between the accumulation rate of the two proteins remains relatively constant and is approximately 2:1
+Changes in accumulation rate are proportional to the square of the changes in growth rate ($2/3^2=4/9)$.}
 \label{time-gr-fig}
 \end{figure}
--------------------------------------------------------------------------------
-As a test case for the model and our ability to set up an experimental system sensitive enough to test it, Leeat Y. assembled a plate spanning various media with a strain of S. Cerevisiae expressing GFP fused to a ribosomal promoter.
-
-Our analysis shows that, indeed, the accumulation rate scales like the growth rate squared.
-One should note that there are other explanations for this dependence and therefore other promoters will be tested as well.
+\subsection{Promoter activity is superlinear in growth rate for some non-ribosomal promoters}
+As an initial attempt to test our model's predictions Leeat Y. from the Segal lab conducted an experiment in which 7 strains of S.Cerevisiae, each one containin a different promoter fused to a fluorescent reporter gene, where grown in a 96-well plate with the optical density and fluorescence monitored over time.
+The strains were grown in 6 different media, differing in carbon source and availability of amino acids.
+For each strain the maximal growth rate, promoter activity and protein level (during the maximal growth rate time) where calculated.
+The results for one of the promoters is plotted in figure \ref{gr-fl-fig}.
+It should be noted that the data analysis is still preliminary and quality control measures, as well as more adequate methods for identifying trends should be added to the data processing procedure.
+However, even under the initial analysis done, promoter activity shows a superlinear relation to growth rate, whereas protein level follows a more linear trend.
+In figure \ref{gr-fl-fig} the analysis for one of the promoters (PAB1) is shown.
+It is one of the promoters for which a clear, superlinear, trend can be observed.
+Figure \ref{gr-fl-mult} shows the data for the rest of the promoters.
+\begin{figure}[h]
+\includegraphics{propfig2.pdf}
+\caption{Dependence of promoter activity and protein level on growth rate for PAB1 promoter under different growth media.
+(A) Promoter activity (as deduced by protein accumulation rate) exhibits a superlinear relation to growth rate.
+(B) Protein level scales roughly like growth rate.
+}
+\label{gr-fl-fig}
+\end{figure}
+\begin{figure}[h]
+\includegraphics{propfig3.pdf}
+\caption{Dependence of promoter activity and protein level on growth rate under different growth media for various promoters.
+Left column shows promoter activity (as deduced from protein accumulation rates).
+Right column shows protein levels.
+}
+\label{gr-fl-mult}
+\end{figure}
 \subsection{Exploring balanced growth in batch cultures}
-Although logarithmic balanced growth is well defined theoretically, it remains unclear if and how real cultures can exist in this phase.
-
-One device that is commonly used for long term growth of cultures is a chemostat.
-A comprehensive discussion of chemostats and their workings in beyond the scope of this document.
-Briefly, chemostats replace a pre-defined fraction of a media in which a culture in grown by fresh media every some constant time interval.
-They therefore allow continous growth over long periods of time.
-However, it is unclear whether growth under such conditions is indeed balanced.
-This is due to the fact that the culture converges to being under some limiting nutrient concentration.
-When such a limiting concentration is reached, the growth of the culture is slowed down (prior to the next dilution step) and therefore the logarithmic balanced growth phase breaks.
-
-Another way of apporximating balanced growth is by putting a small culture in a large volume of media, a situation that, for some time, allows the culture to grow with no limiting resource.
-One of my aims in this research is to quantify the extent to which logarithmic balanced growth occures in such a setup.
-The concrete experimental setup consists of a 96-well plate and a plate reader for measuring both the optical density and fluorescense of plasmids that are integrated into the bacteria.
-
-Being able to identify logarithmic balanced growth given such a setup (if indeed it occures) is a valuable building block for extracting various quantitative data about different bacterial strains under different nutrients.
-It should allow for good reproducibility and insightful comparisons of phenotipic behaviours that are hard to obtain otherwise.
-\subsubsection{Growth rate assessment}
-\label{growth-rate}
-A key feature of logarithmic balanced growth is the maintenance of growth rate throughout this phase.
-As such, accurate assessment of growth rate is required.
-
-Despite being theoretically simple to calculate, in practice, obtaining accurate growth rate assessment over time requires overcoming various experimental obstacles.
-These include, among others: accurate background determination and subtraction, detector noise, outlying measurements detection and removal and the detection of the period of time during which the growth rate is constant and maximal.
-
-In our work we have developed a procedure that attempts to overcome these issues.
-The key features of this procedure include background and detector noise determination and subtraction, use of high dilution ratio of the initial culture and use of Trimmed-Least-Squares robust fit methods \hl{cite reuseeaue} to overcome outlier measurements \hl{figure 1 - 4 panes - raw, background and threshold subtraction, trimming and log-scale, growth rate}.
-
-We believe the combination of these techniques to give us a reliable, reproducable and versatile growth rate assessment method for a varaiety of growth media and organisms.
-
-Where fluorescent reporter genes exist, we can estimate the accuracy of the measurement by comparing the results of executing this algorithm on the OD measurements with those obtained by executing it on fluorescense measurements.
-If deviations between the two estimates occure we can conclude that either the growth is not balanced, or the procedure failed.
-
-Further verification that the growth is indeed balanced during a phase can be done by verifying no correlation between the growth rate at a sliding subwindow throughout this time and the time itself.
 \subsubsection{Protein level and promoter activity measurements}
 Two features that are of interest for modeling the proteome of a cell, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
 Both features are hard, sometimes impossible, to measure directly without bias.
@@ -296,17 +294,4 @@ In order to achieve these goals we are developing procedures that allow us to ex
 Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
 Comparison of the calculated slopes indicates how balanced the protein accumulation is compared with the growh rate.
 The ratio between the calculated offsets of the fit lines measures the ratio of fluorescence to biomass which serves as a proxy for the protein abundance.
-\subsection{Correlating growth rate and the protein to biomass ratio}
-A simple calculation shows that the protein to biomass ratio is expected to change as a function of the growth rate.
-As Ribosomes are composed of 1:2 ratio of protein to RNA then, under the assumption of constant translation rate, one expects that the ribosomal protein fraction out of the proteome will be:
-\[\alpha_R=\frac{t_{tr}}{\tau}=t_{tr}g/\ln(2)\]
-And therefore, the ribosomal RNA (rRNA) amount relative to the protein amount should follow:
-\[\alpha_{rRNA}=2\alpha_R=2t_{tr}g/\ln(2)\]
-Meaning it is an increasing function of $g$.
-Experimental data supports this model as it shows increase in RNA/protein ratio as growth rate increases.
-Note that the other factors needed for calculation of the global macromolecular composition are the relative fractions of other cellular components (lipids, DNA, small metabolites, all of which are expected to stay relatively constant across different growth rates) and the relative fraction of rRNA out of the total RNA in the cell (which is commonly cited as being ~ 85\% as long as growth rates are not extremely slow \cite{Bremer1987,goldberger1979biological}).
-
-We aim to measure the RNA to protein ratio to check the validity of this prediction.
-\bibliographystyle{plain}
-\bibliography{library}
 \end{document}
