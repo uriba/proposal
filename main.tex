@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass[a4page]{report}
 \usepackage{color,soul,amsmath,graphicx}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
@@ -10,6 +10,13 @@
 \begin{document}
 
 \maketitle
+\begin{abstract}
+Exploring the relation between growth rate and different cellular parameters in microorganisms has been a research subject for many decades.
+Recent results suggest this relation extends beyond global parameters such as size, protein to RNA ratio and ribosomes concentration.
+In this work we attempt to characterize the interdependence of growth rate and specific promoter activities, focusing on non-regulated promoters.
+Our initial results suggest an expected linear dependence of protein level to growth rate and a scaling of promoter activity that is proportional to the growth rate squared.
+\end{abstract}
+
 \tableofcontents
 
 \section{Introduction}
@@ -23,16 +30,16 @@ We note that the definition of exponential balanced growth is somewhat more rest
 
 Advances in technology allowed for continuous increase in the resolution and breadth of measurements of the different components of cells under constant conditions starting from the mere growth rate and wet/dry mass ratio, moving onto composition in terms of chemical elements, macromolecular composition and in recent years mRNA profiling and complete proteomic data using various methods.
 
-As measurement techniques evolve and more details are exposed, models and formulas of finer detail are being devised to explain and predict various physiological aspects of growing cells \cite{Scott2010a,Lerman2012,Karr2012}.
+As measurement techniques evolve and more details are exposed, models and formulas of finer detail are being devised to explain and predict various physiological aspects of growing cells \cite{Scott2010b,Lerman2012,Karr2012}.
 \subsection{Research motivation}
 Discovering and understanding the rules underlying the composition of cells is valuable in many ways.
 It therefore has a long scientific heritage (\cite{Schaechter1958, Maaloe1969, Bremer1987, Klumpp2009a}, just to name a few).
 From a basic-science point of view it increases our understanding of how microorganisms work, what are the mechanisms at their disposal and how they regulate their composition to address different environmental conditions.
 Experimentally, the understanding of the impact of global, growth-rate induced, parameters on expression patterns helps in analyzing experimental results and discerning between specific regulation and global effects \cite{loven2012}.
-For synthetic biology applications, modelling of the interplay between protein expression and growth rate helps in analyzing the expected properties and impacts of introducing new pathways, or modifying existing traits of target microorganisms.
-We therefore find the pursue for the discovery of ``Growth Laws'' (\cite{Scott2010a}) and underlying principles to be a valuable scientific goal.
+For synthetic biology applications, modeling of the interplay between protein expression and growth rate helps in analyzing the expected properties and impacts of introducing new pathways, or modifying existing traits of target microorganisms.
+We therefore find the pursue for the discovery of ``Growth Laws'' (\cite{Scott2010b}) and underlying principles to be a valuable scientific goal.
 \subsection{Recent results}
-In recent years there has been renewed intereset in the interplay between global factors, growth rate and gene expression.
+In recent years there has been renewed interest in the interplay between global factors, growth rate and gene expression.
 
 In \cite{Zaslaver2009a} the authors monitored the activity of a large set of promoters across different growth media and different growth phases in E.Coli.
 They found that the fraction of ribosomal expression out of the entire set of expressed genes grows linearly with growth rate.
@@ -48,7 +55,7 @@ The authors use two main experimental setups.
 In one, shifts were made to the composition of the media in which the cells grew.
 In the other, mutant strains lacking the ability to ferment glucose where grown in glucose rich media and their gene expression pattern was monitored.
 In both cases the observed results suggest that the feed-forward mechanism was at play.
-The authors thus conclude that, according to their results, carful tuning of sensing of environmental conditions regulates gene expression that, in turn, affects growth rate.
+The authors thus conclude that, according to their results, careful tuning of sensing of environmental conditions regulates gene expression that, in turn, affects growth rate.
 
 In \cite{Klumpp2009a} the question of whether the protein concentration of a constitutively expressed gene should increase or decrease as a function of growth rate in E.Coli is analyzed.
 According to the authors' findings, the concentration is expected to decrease as growth rate increases.
@@ -59,26 +66,26 @@ The prediction was less accurate when protein fraction out of the proteome was c
 The article continue to analyze the expected effects of different regulatory mechanisms and their interplay with growth rate.
 The authors conclude that ``Changes in gene expression need not reflect regulation''.
 
-In \cite{Scott2010a} the impacts of modifying the translation rate of E.Coli (via antibiotics) is analyzed.
+In \cite{Scott2010b} the impacts of modifying the translation rate of E.Coli (via antibiotics) is analyzed.
 The authors derive formulas for describing the expected effects of modification of translation rate on growth rate and protein levels.
-They also induce the production of unecessary proteins and monitor the effect on growth rate to assess the impact of protein burden.
+They also induce the production of unnecessary proteins and monitor the effect on growth rate to assess the impact of protein burden.
 Their major results are that slower translation rate slows growth and reduces protein levels and that production of unnecessary protein reduces growth rate in a proportional way.
 
 In \cite{Berthoumieux2013} an attempt is made to distinguish between the effects of global physiological state of the cell and specific regulation mechanisms in E.Coli.
 The authors use an unregulated promoter (pRM from phage $\lambda$) as a benchmark and compare the activities of other promoters (fis, crp, acs) with it.
-Data is obtained by monitoring the growth of a batch culture in 96-well plate and calculating the promoter activities throughout the growth phases (using placmids with fluorescent reporter genes).
+Data is obtained by monitoring the growth of a batch culture in 96-well plate and calculating the promoter activities throughout the growth phases (using plasmids with fluorescent reporter genes).
 For acs the authors conclude that specific regulation due to internal cAMP concentration has a major impact on promoter activity.
 For fis and crp, the major impact on promoter activity is the global physiological state of the cell.
 
-In \cite{loven2012} the issue of normalization of microarray measurements is discussed.
-The authors claim that carful procedures need to be followed in order to correctly identify what part of the expression program changes vs. what measured changes are the result of changes in global cellular parameters.
+In \cite{loven2012} the issue of normalization of micro-array measurements is discussed.
+The authors claim that careful procedures need to be followed in order to correctly identify what part of the expression program changes vs. what measured changes are the result of changes in global cellular parameters.
 This article demonstrates another aspect in which global physiological changes play a role in observed measurements and their analysis.
 
 \section{Research objectives}
 \begin{enumerate}
 \item Develop a model that relates the expression level of an unregulated gene to the growth rate and global physiological state of the cell.
 \item Assess the extent to which observed gene expression across conditions is the result of global factors vs. specific regulation.
-\item Analyze the tradeoff between optimal resource allocation via specific regulation and passive allocation of resources due to global cellular conditions.
+\item Analyze the trade-off between optimal resource allocation via specific regulation and passive allocation of resources due to global cellular conditions.
 \end{enumerate}
 \section{Preliminary results}
 \subsection{A model for estimating the effect of resource allocation on protein accumulation rate and protein level}
@@ -134,7 +141,7 @@ In light of this observation we aim to derive an “intrinsic”, growth-conditi
 A measure that, once determined, can be used to calculate the observed promoter activity for a given steady growth condition by taking into account the growth rate and proteome composition under this condition.
 \subsubsection{The passive allocation model}
 We explore a model where, under any given growth condition, each promoter has some intrinsic ``strength'' or affinity.
-We stress that promoters that are consitutively expressed have the same strength under any growth condition.
+We stress that promoters that are constitutively expressed have the same strength under any growth condition.
 We assume this condition holds for the majority of promoters (though this assumption is irrelevant for the following analysis).
 Furthermore, in our model, regulated promoters can only have a few, discrete, transcriptionally controlled ``strengths'' (On-Off and rarely some intermediate states as well).
 We note that for a regulated promoter, it will have the same strength in between any two growth conditions between which its specific regulation remains unchanged.
@@ -186,7 +193,7 @@ For simplicity one can think about the time it takes a single ribosome to transl
 Note that when a cell doubles itself, every ribosome needs to translate at least the equivalent of its own proteins plus some portion of the rest of the proteome.
 Therefore, the total time it takes the translation machinery to produce a desired proteome under condition c, and thus to double the biomass, assuming constant translation rate, is:
 \[\tau_c=\frac{\sum_{j\in P}\Gamma^c_j}{\Omega}t_{tr}\]
-Remebering that by  definition $g=\ln(2)/\tau$ yields:
+Remembering that by  definition $g=\ln(2)/\tau$ yields:
 \[g_c=\ln(2)\frac{\Omega}{t_{tr}\sum_{j\in P}\Gamma^c_i}\]
 Substituting this result in the activity level equation (equation \ref{cond-act}) for condition c we get that:
 \begin{equation}
@@ -214,10 +221,10 @@ We have developed a model that predicts the protein level and promoter activity 
 Our model employs a 'feed-forward' strategy as was suggested in \cite{Levy2009}.
 It takes a top-down approach and extends the analysis done in \cite{Leeat2013}.
 Our model suggests that the promoter activity scales like the growth rate squared and that the protein level scales like the growth rate.
-These results are the inverse of the claims made at \cite{Klumpp2009a} and \cite{Scott2010a}.
-Our model claims that the relation observed for ribosomal synthesis fraction and ribosomal protein fraction out of the proteome can in fact be extended to other promoters and proteins, as long as they are assumed to be unregulated between conditions.
-It thus adds aditional explenation to the explenations already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \cite{Zaslaver2009a}.
-Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activiy and resulting protein levels, as is claimed by \cite{Berthoumieux2013}.
+These results are the inverse of the claims made by \cite{Klumpp2009a} and \cite{Scott2010b}.
+Our model claims that the relation observed for ribosomal synthesis fraction \cite{Zaslaver2009a} and ribosomal protein fraction \cite{Maaloe1969,ingraham1983growth} out of the proteome can in fact be extended to other promoters and proteins, as long as they are assumed to be unregulated between conditions.
+It thus adds additional explanation to the mechanisms already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \cite{Zaslaver2009a}.
+Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activity and resulting protein levels, as is claimed by \cite{Berthoumieux2013}.
 \subsection{Growth rate, protein level and promoter activity agree with the model when tracked over time}
 One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
 However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
@@ -232,7 +239,7 @@ This initial result thus validates the ability of our experimental system and an
 It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulated promoters.
 \begin{figure}[h]
 \includegraphics{propfig1.pdf}
-\caption{Comparing growth rate, protein level and proein accumulation rate throughout growth in a batch culture.
+\caption{Comparing growth rate, protein level and protein accumulation rate throughout growth in a batch culture.
 (A) Growth rate as a function of time.
 Two phases of constant growth are marked - Maximal growth and slow growth.
 The growth rate changes by a factor of about 2/3 between the two phases.
@@ -246,15 +253,13 @@ Changes in accumulation rate are proportional to the square of the changes in gr
 \label{time-gr-fig}
 \end{figure}
 \subsection{Promoter activity is superlinear in growth rate for some non-ribosomal promoters}
-In an initial attempt to test our model's predictions Leeat Y. from the Segal lab conducted an experiment in which seven strains of S.Cerevisiae, each one containin a different promoter fused to a fluorescent reporter gene, where grown in a 96-well plate with the optical density and fluorescence monitored over time.
+In an initial attempt to test our model's predictions Leeat Y. from the Segal lab conducted an experiment in which seven strains of S.Cerevisiae, each one containing a different promoter fused to a fluorescent reporter gene, where grown in a 96-well plate with the optical density and fluorescence monitored over time.
 The strains were grown in six different media, differing in carbon source and availability of amino acids.
 For each strain the maximal growth rate, promoter activity and protein level (during the maximal growth rate time) where calculated.
-The results for one of the promoters is plotted in figure \ref{gr-fl-fig}.
+The results for one of the promoters (PAB1) is plotted in figure \ref{gr-fl-fig}.
 It should be noted that the data analysis is still preliminary and quality control measures, as well as more adequate methods for identifying trends should be added to the data processing procedure.
 However, even under the initial analysis done, promoter activity shows a superlinear relation to growth rate, whereas protein level follows a more linear trend.
-In figure \ref{gr-fl-fig} the analysis for one of the promoters (PAB1) is shown.
-It is one of the promoters for which a clear, superlinear, trend can be observed.
-Figure \ref{gr-fl-mult} shows the data for the rest of the promoters.
+Figure \ref{gr-fl-mult} shows the data for the other promoters monitored.
 \begin{figure}[h]
 \includegraphics{propfig2.pdf}
 \caption{Dependence of promoter activity and protein level on growth rate for PAB1 promoter under different growth media.
@@ -272,27 +277,15 @@ Right column shows protein levels.
 \label{gr-fl-mult}
 \end{figure}
 \section{Methods}
-\subsection{Protein level and promoter activity measurements}
-Promoter activity and protein level are estimated based on promoter-reporter fusion libraries.
-Two features that are of interest for modeling the proteome of a cell, be it during balanced growth or otherwise, are the relative protein levels and the corresponding promoter activities.
-Both features are hard, sometimes impossible, to measure directly without bias.
+Promoter activity and protein level will be estimated based on promoter-reporter fusion libraries.
+Such libraries exist in the Alon lab (E.Coli) and Segal lab (S.Cerevisiae).
 
-The fusion of fluorescent reporter genes to promoters in libraries is a common method to quantitatively deduce these features.
-However, there is no canonical form or protocol for the inference of these features based on such experimental setup.
-Two leading approaches involve estimating the amount of fluorescence per OD unit, which corresponds to protein abundance, and measuring the rate at which the fluorescence increases per OD unit, which corresponds to the production (or, more accurately, accumulation) rate of the protein.
+Growth rate will be modified by use of different carbon sources and addition/omission of amino acids in the media.
+Current planned carbon sources are Glucose, Fructose, Galactose, Glycerol and Ethanol.
+Each one can be coupled to all amino acids or to a subset of amino acids to possibly give finer control over growth rate and the metabolic challenge.
 
-While these two values are obtained from the same measurements, they are by no means equivalent.
-If one assumes the protein level to follow the classic formula:
-\[ \frac{dP}{dt}=\beta-\alpha P\]
-(Where $\alpha$ is the dilution rate, equivalent to the growth rate, and $\beta$ is the production rate)
-Then the steady-state concentration of the protein becomes:
-\[ P_{st.st}=\frac{\beta}{\alpha}\]
-Showing that the steady state concentration equales the production rate divided by the growth rate.
-
-Monitoring these two properties throughout the growth phase of a culture gives us an opportunity to estimate how well the above stated mathematical relation holds and allows us to test if and how the expected convergence occures \hl{figure 2. 4 panels - fluorescence and OD growth rates on the same plot, activity over time, abundance over time and ratio of abundance to activity over time compared with growth rate}.
-In order to achieve these goals we are developing procedures that allow us to extract accurate estimates for the fluorescence and OD values throughtout the growth phase.
-
-Briefly, our procedure involves calculating linear fit on the background-subtracted logarithm of both the fluorescence and abosrbance measurements (in a similar manner to the one described in \ref{growth-rate}).
-Comparison of the calculated slopes indicates how balanced the protein accumulation is compared with the growh rate.
-The ratio between the calculated offsets of the fit lines measures the ratio of fluorescence to biomass which serves as a proxy for the protein abundance.
+Measurements will take place by tracking optical density and fluorescence in 96-well plates using a spectrophotometer.
+Analysis and extraction of relevant parameters (identification of maximal growth-rate phase, calculation of promoter activity and protein level) will be done by custom developed algorithms.
+\bibliographystyle{plain}
+\bibliography{library}
 \end{document}
