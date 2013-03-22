@@ -1,4 +1,4 @@
-\documentclass[a4page]{report}
+\documentclass[a4page,notitlepage]{article}
 \usepackage{color,soul,amsmath,graphicx}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
@@ -14,9 +14,10 @@
 Exploring the relation between growth rate and different cellular parameters in microorganisms has been a research subject for many decades.
 Recent results suggest this relation extends beyond global parameters such as size, protein to RNA ratio and ribosomes concentration.
 In this work we attempt to characterize the interdependence of growth rate and specific promoter activities, focusing on non-regulated promoters.
-Our initial results suggest an expected linear dependence of protein level to growth rate and a scaling of promoter activity that is proportional to the growth rate squared.
+For non-regulated promoters we suggest a ``passive'' regulation model where observed changes are the passive outcome of global changes in the cell physiology and expression program.
+Our initial results suggest an expected linear dependence of protein level to growth rate and a scaling of promoter activity that is proportional to the growth rate squared for such promoters.
 \end{abstract}
-
+\clearpage
 \tableofcontents
 
 \section{Introduction}
@@ -35,10 +36,10 @@ As measurement techniques evolve and more details are exposed, models and formul
 Discovering and understanding the rules underlying the composition of cells is valuable in many ways.
 It therefore has a long scientific heritage (\cite{Schaechter1958, Maaloe1969, Bremer1987, Klumpp2009a}, just to name a few).
 From a basic-science point of view it increases our understanding of how microorganisms work, what are the mechanisms at their disposal and how they regulate their composition to address different environmental conditions.
-Experimentally, the understanding of the impact of global, growth-rate induced, parameters on expression patterns helps in analyzing experimental results and discerning between specific regulation and global effects \cite{loven2012}.
+Experimentally, the understanding of the impact of global, passive, growth-rate induced parameters on expression patterns helps in analyzing experimental results and discerning between specific regulation global effects \cite{loven2012}.
 For synthetic biology applications, modeling of the interplay between protein expression and growth rate helps in analyzing the expected properties and impacts of introducing new pathways, or modifying existing traits of target microorganisms.
 We therefore find the pursue for the discovery of ``Growth Laws'' (\cite{Scott2010b}) and underlying principles to be a valuable scientific goal.
-\subsection{Recent results}
+\subsection{Recent published results}
 In recent years there has been renewed interest in the interplay between global factors, growth rate and gene expression.
 
 In \cite{Zaslaver2009a} the authors monitored the activity of a large set of promoters across different growth media and different growth phases in E.Coli.
@@ -87,7 +88,7 @@ This article demonstrates another aspect in which global physiological changes p
 \item Assess the extent to which observed gene expression across conditions is the result of global factors vs. specific regulation.
 \item Analyze the trade-off between optimal resource allocation via specific regulation and passive allocation of resources due to global cellular conditions.
 \end{enumerate}
-\section{Preliminary results}
+\section{Preliminary theoretical results}
 \subsection{A model for estimating the effect of resource allocation on protein accumulation rate and protein level}
 When comparing promoter activity or gene expression data across different growth conditions one finds that nearly all promoters change their activity.
 However - detailed examination of this change reveals that genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
@@ -102,7 +103,7 @@ This ratio is known to change somewhat under different growth conditions \cite{B
 
 We use the following notation:
 \begin{description}
-\item[$P$] Total protein amount (in culture, mass).
+\item[$P$] Total protein amount (of culture, mass).
 \item[$B$] Total biomass amount (of culture, mass).
 \item [$dP/dt$] Rate of protein production (in culture, mass/time).
 \item [$dB/dt$] Rate of biomass production (in culture, mass/time).
@@ -225,7 +226,8 @@ These results are the inverse of the claims made by \cite{Klumpp2009a} and \cite
 Our model claims that the relation observed for ribosomal synthesis fraction \cite{Zaslaver2009a} and ribosomal protein fraction \cite{Maaloe1969,ingraham1983growth} out of the proteome can in fact be extended to other promoters and proteins, as long as they are assumed to be unregulated between conditions.
 It thus adds additional explanation to the mechanisms already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \cite{Zaslaver2009a}.
 Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activity and resulting protein levels, as is claimed by \cite{Berthoumieux2013}.
-\subsection{Growth rate, protein level and promoter activity agree with the model when tracked over time}
+\section{Preliminary experimental results}
+\subsection{Growth rate, protein level and promoter activity follow model predictions when tracked over time}
 One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
 However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
 To test this hypothesis, albeit at non-ideal conditions, we tracked the growth of E.Coli in a batch culture growing in M9 minimal media with 0.2\% glucose.
@@ -239,20 +241,21 @@ This initial result thus validates the ability of our experimental system and an
 It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulated promoters.
 \begin{figure}[h]
 \includegraphics{propfig1.pdf}
-\caption{Comparing growth rate, protein level and protein accumulation rate throughout growth in a batch culture.
+\caption{Inter-dependence of growth rate, protein level and protein accumulation rate follow theoretical model predictions when tracked over time in a batch culture.
+All values where calculated by averaging over 18 measurement point windows spanning 2.5 hours.
 (A) Growth rate as a function of time.
-Two phases of constant growth are marked - Maximal growth and slow growth.
+Two phases of relatively constant growth are marked for convenience - Maximal growth and slow growth.
 The growth rate changes by a factor of about 2/3 between the two phases.
-(B) Protein level as a function of time.
+(B) Protein level per OD as a function of time.
 The ratio between the levels of the two proteins remains relatively constant and is approximately 2:1.
-The absolute level of each protein decreases during the same time, and in the same proportion as the growth rate.
-(C) Protein accumulation rate as a function of time.
-Changes in the accumulation rate (reflecting changes in promoter activity) precede changes in growth rate and protein level by about 1.5 hours.
+The absolute level per OD of each protein decreases during the same time, and in the same proportion as the growth rate.
+(C) Protein accumulation rate per OD as a function of time.
+Changes in the accumulation rate per OD (reflecting changes in promoter activity) precede changes in growth rate and protein level by about 1.5 hours.
 The ratio between the accumulation rate of the two proteins remains relatively constant and is approximately 2:1
-Changes in accumulation rate are proportional to the square of the changes in growth rate ($2/3^2=4/9)$.}
+Changes in accumulation rate per OD are proportional to the square of the changes in growth rate ($2/3^2=4/9)$.}
 \label{time-gr-fig}
 \end{figure}
-\subsection{Promoter activity is superlinear in growth rate for some non-ribosomal promoters}
+\subsection{Promoter activity scales superlinearly with growth rate for some non-ribosomal promoters}
 In an initial attempt to test our model's predictions Leeat Y. from the Segal lab conducted an experiment in which seven strains of S.Cerevisiae, each one containing a different promoter fused to a fluorescent reporter gene, where grown in a 96-well plate with the optical density and fluorescence monitored over time.
 The strains were grown in six different media, differing in carbon source and availability of amino acids.
 For each strain the maximal growth rate, promoter activity and protein level (during the maximal growth rate time) where calculated.
@@ -264,7 +267,9 @@ Figure \ref{gr-fl-mult} shows the data for the other promoters monitored.
 \includegraphics{propfig2.pdf}
 \caption{Dependence of promoter activity and protein level on growth rate for PAB1 promoter under different growth media.
 (A) Promoter activity (as deduced by protein accumulation rate) exhibits a superlinear relation to growth rate.
+Dashed line shows best square fit, as the model suggests.
 (B) Protein level scales roughly like growth rate.
+Dashed line shows best linear fit, as the model suggests.
 }
 \label{gr-fl-fig}
 \end{figure}
@@ -273,6 +278,7 @@ Figure \ref{gr-fl-mult} shows the data for the other promoters monitored.
 \caption{Dependence of promoter activity and protein level on growth rate under different growth media for various promoters.
 Left column shows promoter activity (as deduced from protein accumulation rates).
 Right column shows protein levels.
+Dashed lines in left/right columns show best square/linear fit respectively, as the model suggests.
 }
 \label{gr-fl-mult}
 \end{figure}

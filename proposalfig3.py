@@ -64,7 +64,7 @@ for (gn,gd) in genes:
     xlim(0,1)
     # a1.text(0.95,0.9,"(%c)" % chr(65 + 2*gn),horizontalalignment='right',verticalalignment='bottom',transform=a1.transAxes, fontsize=annotation_size)
     set_ticks(a1)
-    if gn==0:
+    if gn==10:
         legend(("Glu. with AA","Fruc. with AA","Glu. minus Ura", "Glu. minus AA","Gal with AA","Gal minus AA"),loc="upper left",prop={'size':ticksize})
 
     xs = []
