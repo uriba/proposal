@@ -3,7 +3,7 @@
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
 
-\title{Exploring the quantitative dependence of proteome composition on growth rate in model microorganisms}
+\title{Exploring the quantitative dependence of proteome composition and growth rate in model microorganisms}
 \author{Uri Barenholz}
 \date{March 2013}
 
@@ -23,6 +23,13 @@ Our initial results suggest an expected linear dependence of protein level to gr
 \section{Introduction}
 Single cell organisms are probably the simplest form of life accessible to science today.
 However, complete understanding of their workings is still far from reached.
+Decades ago it was first observed that, under constant supply of nutrients, such organisms maintain a constant growth rate, as was summarized by \cite{Monod1949}.
+A decade later is was discovered that growth rate is a major determinant of various cellular properties such as cell size and macromolecular composition, while growth media seems to play relatively minor role in these aspects \cite{Schaechter1958}.
+Throughout the years there has been a continous interest in the interplay between growth rate and cellular composition (\cite{Maaloe1969,Pedersen1978a,Bremer1987}).
+However, it was not until recent years when advances in technology enabled high resolution monitoring of cellular properties such as mRNA levels and wide proteomic data.
+Despite these advances, until recently, the connection between changes in individual transcripts and proteins and cellular physiology, as reflected by growth rate, remained largely unaddressed.
+
+In recent years, there has been renewed interest in the relationship between growth rate, gene expression and protein abundance, and attempts have been made to characterize it experimentally (\cite{Zaslaver2009a,Levy2009,Berthoumieux2013}) and theoretically (\cite{Klumpp2009a,Scott2010b})
 The ability of such organisms to self-replicate given a constant supply of simple substances is one of the simplest experimental setups that can be used to investigate the workings of a living system, albeit under a relatively simple environmental challenge.
 The reasoning behind this experimental setting is that, at the absence of external changes to the environment, an organism should “converge” to a constant state (or replication cycle).
 When observing a culture that grows in this condition (termed exponential balanced growth), the growth rate remains constant and the relative (average) amounts of intracellular components are also maintained \cite{Campbell1957}.
@@ -93,7 +100,7 @@ This article demonstrates another aspect in which global physiological changes p
 When comparing promoter activity or gene expression data across different growth conditions one finds that nearly all promoters change their activity.
 However - detailed examination of this change reveals that genes can be subdivided into clusters and that the changes within each cluster (between two given conditions) can be encapsulated by a single scaling factor \cite{Leeat2013}.
 
-We find this observation to suggest that promoters and genes have some intrinsic, static, affinity for expression.
+We find this observation to suggest that promoters and genes have some intrinsic, static, affinity for expression, as was suggested decades ago by \cite{Maaloe1969}.
 In the following section we extend the analysis of the implications of having a limited synthesis capacity, as is suggested in \cite{Leeat2013} and integrate it with the implications of the existence of such static affinities.
 We postulate that a large fraction of the changes observed in promoter activity and gene expression can be explained by a passive mechanism of competition over resources.
 
