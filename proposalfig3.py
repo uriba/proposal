@@ -43,7 +43,6 @@ for (gn,gd) in genes:
         anums.append(ploti(gn+1,i))
 
     fig.text(0.5,0.995-(float(gn)*0.98/6),gd,horizontalalignment='center',verticalalignment='top',fontsize = titlesize)
-    print 1-(float(gn)/6)
     xs = []
     ys = []
     for i in range (0,len(anums[0])/2):
@@ -64,8 +63,8 @@ for (gn,gd) in genes:
     xlim(0,1)
     # a1.text(0.95,0.9,"(%c)" % chr(65 + 2*gn),horizontalalignment='right',verticalalignment='bottom',transform=a1.transAxes, fontsize=annotation_size)
     set_ticks(a1)
-    if gn==10:
-        legend(("Glu. with AA","Fruc. with AA","Glu. minus Ura", "Glu. minus AA","Gal with AA","Gal minus AA"),loc="upper left",prop={'size':ticksize})
+    if gn==5:
+        legend(("Glu. with AA","Fruc. with AA","Glu. minus Ura", "Glu. minus AA","Gal with AA","Gal minus AA"),loc="upper left",prop={'size':ticksize},numpoints=1)
 
     xs = []
     ys = []
