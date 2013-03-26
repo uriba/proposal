@@ -10,13 +10,13 @@ titlesize = 10
 markersize=3
 
 file_name_prefix = "graph3"
-genes = [   (0,'PYK1 - pyruvate kinase'),
-            (1,'HHF2 - core histone protein'),
+genes = [   (0,0,'PYK1 - pyruvate kinase'),
+            (5,1,'HHF2 - core histone protein'),
         #    (2,'PAB1 - Poly(A) binding protein'),
-            (2,'RPL8A - Ribosomal 60S protein'),
-            (3,'CCW12 - Cell wall mannoprotein'),
-            (4,'ACT1 - Actin'),
-            (5,'CLN1 - G1 cyclin')
+            (1,2,'RPL8A - Ribosomal 60S protein'),
+            (3,3,'CCW12 - Cell wall mannoprotein'),
+            (4,4,'ACT1 - Actin'),
+            (2,5,'CLN1 - G1 cyclin')
         ]
 
 def ploti(g,i):
@@ -34,15 +34,16 @@ def set_ticks(a):
         t.label.set_fontsize(ticksize)
 
 fig = figure()
+fig.subplots_adjust(right=0.83,top=0.95,wspace=0.30,hspace=0.8)
 fig.set_size_inches(5,7)
 fig.set_dpi(80)
 
-for (gn,gd) in genes:
+for (loc,gn,gd) in genes:
     anums = []
     for i in range(1,3):
         anums.append(ploti(gn+1,i))
 
-    fig.text(0.5,0.995-(float(gn)*0.98/6),gd,horizontalalignment='center',verticalalignment='top',fontsize = titlesize)
+    fig.text(0.5,0.98-(float(loc)*0.92/6),gd,horizontalalignment='center',verticalalignment='top',fontsize = titlesize)
     xs = []
     ys = []
     for i in range (0,len(anums[0])/2):
@@ -55,16 +56,14 @@ for (gn,gd) in genes:
     trendx = np.arange(0,1,0.05)
     z=trendx*trendx*squareslope
 
-    a1 = subplot(6,2,2*gn+1)
+    a1 = subplot(6,2,2*loc+1)
     a1.plot(xs[0],ys[0],"ro",xs[1],ys[1],"go",xs[2],ys[2],"bo",xs[3],ys[3],"ko",xs[4],ys[4],"co",xs[5],ys[5],"mo",markersize=markersize)
     a1.plot(trendx,z,"b--")
+    a1.text(0.1,0.6,'$y=%.2fx^2$' % squareslope,fontsize=axisfontsize,transform=a1.transAxes)
     a1.set_xlabel("Growth rate [dbl/Hour]",fontsize = axisfontsize)
-    a1.set_ylabel("Protein acc. rate (au)",fontsize = axisfontsize)
+    a1.set_ylabel("Prot. acc. rate [au]",fontsize = axisfontsize)
     xlim(0,1)
-    # a1.text(0.95,0.9,"(%c)" % chr(65 + 2*gn),horizontalalignment='right',verticalalignment='bottom',transform=a1.transAxes, fontsize=annotation_size)
     set_ticks(a1)
-    if gn==5:
-        legend(("Glu. with AA","Fruc. with AA","Glu. minus Ura", "Glu. minus AA","Gal with AA","Gal minus AA"),loc="upper left",prop={'size':ticksize},numpoints=1)
 
     xs = []
     ys = []
@@ -77,14 +76,15 @@ for (gn,gd) in genes:
     slope = sum(x*y)/sum(x*x)
     z=trendx*slope
 
-    a2 = subplot(6,2,2*gn+2)
+    a2 = subplot(6,2,2*loc+2)
     a2.plot(xs[0],ys[0],"ro",xs[1],ys[1],"go",xs[2],ys[2],"bo",xs[3],ys[3],"ko",xs[4],ys[4],"co",xs[5],ys[5],"mo",markersize=markersize)
     a2.plot(trendx,z,"b--")
+    a2.text(0.1,0.7,'$y=%.2fx$' % slope,fontsize=axisfontsize,transform=a2.transAxes)
     a2.set_xlabel("Growth rate [dbl/Hour]",fontsize = axisfontsize)
-    a2.set_ylabel("Protein level (au)",fontsize = axisfontsize)
+    a2.set_ylabel("Prot. level [au]",fontsize = axisfontsize)
     xlim(0,1)
-    # a2.text(0.95,0.9,"(%c)" % chr(65 + 2*gn + 1),horizontalalignment='right',verticalalignment='bottom',transform=a2.transAxes, fontsize=annotation_size)
+    if loc==0:
+        legend(("Glu. with AA","Fruc. with AA","Glu. minus Ura", "Glu. minus AA","Gal with AA","Gal minus AA"),loc="center left",prop={'size':ticksize},numpoints=1,bbox_to_anchor=(1,0.5))
     set_ticks(a2)
 
-tight_layout()
 fig.savefig('propfig3.pdf')

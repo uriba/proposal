@@ -1,5 +1,7 @@
 \documentclass[a4page,notitlepage]{article}
 \usepackage{color,soul,amsmath,graphicx}
+\usepackage[outercaption]{sidecap}
+\sidecaptionvpos{figure}{c}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
 
@@ -252,23 +254,22 @@ Our research plan is to use this model to test the hypothesis that global cellul
 One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
 However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
 To test this hypothesis, we tracked the growth of \emph{E.Coli} in a batch culture growing in M9 minimal media with 0.2\% glucose.
-The strain grown had a plasmid (pTAC) containing two fluorescent reporter genes (YFP and mCherry).
-At any time-point we calculated the growth rate, the protein accumulation rate (that serves as a proxy for the promoter activity) and the protein level for each of the proteins.
+The strain grown had a plasmid (pTAC) containing a fluorescent reporter gene \hl{one of YFP,mCherry}.
+At any time-point we calculated the growth rate, the protein accumulation rate (that serves as a proxy for the promoter activity) and the protein level.
 The results are shown in figure \ref{time-gr-fig}.
 Panels D and E show that over a significant range of growth rates (0.45-0.65) the protein level and promoter activity remain relatively constant when normalized by the growth rate and the growth rate squared (as is predicted by our model).
 This initial result thus indicates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
-It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulated promoters.
 \begin{figure}[h]
 \includegraphics{propfig1_alt.pdf}
-\caption{Inter-dependence of growth rate, protein level and protein accumulation rate follow theoretical model predictions when tracked over time in a batch culture.
-All values where calculated by averaging over 18 measurement point windows spanning 2.5 hours.
-(A) Raw measurements of fluorescent levels and OD over time shows correlation of expression with growth.
+\caption{Inter-dependence of growth rate, protein level and protein accumulation rate follow theoretical predictions when tracked over time in a batch culture.
+Growth rate, protein level and protein accumulation rate values where calculated by averaging over 18 measurement point windows spanning 2.5 hours.
+(A) Raw measurements of fluorescent levels and OD over time shows correlation of fluorescence with growth.
+\hl{I've included both YFP and mCherry here as I assumed you'd like to see both. In the final version I thought to present only YFP as it looks somewhat better in panel (E).}
 (B) Protein level per OD vs. growth rate shows a generaly increasing trend.
-The ratio between the levels of the two proteins remains relatively constant and is approximately 2:1.
 (C) Protein accumulation rate per OD vs. growth rate shows an increasing trend.
-The ratio between the accumulation rate of the two proteins remains relatively constant and is approximately 2:1.
-(D)
-(E)
+(D) Dividing the protein level by the growth rate at every point reveals a constant (normalized) level for growth rates in the range (0.45,0.65), following the theoretical prediction.
+(E) Dividing the protein accumulation rate by the growth rate squared reveals a constant (normalized) level for growth rates in the range (0.45,0.65), following the theoretical prediction.
+}
 \label{time-gr-fig}
 \end{figure}
 \subsection{Promoter activity scales superlinearly with growth rate for some non-ribosomal promoters}
@@ -279,20 +280,20 @@ The results for one of the promoters (PAB1, mRNA polyA binding protein) is plott
 It should be noted that the data analysis is still preliminary and quality control measures, as well as more adequate methods for identifying trends should be employed in the data processing procedure.
 However, even under the initial analysis done, promoter activity shows a superlinear relation to growth rate, whereas protein level follows a more linear trend.
 Figure \ref{gr-fl-mult} shows the data for the other promoters monitored.
-\begin{figure}[h]
-\includegraphics{propfig2.pdf}
-\caption{Dependence of promoter activity and protein level on growth rate for PAB1 promoter under different growth media.
+\begin{SCfigure}
+\caption{Dependence of promoter activity and protein level on growth rate for PAB1 (Poly(A) binding protein) promoter under different growth media.
 (A) Promoter activity (as deduced by protein accumulation rate) exhibits a superlinear relation to growth rate.
 Dashed line shows best square fit, as the model suggests.
 (B) Protein level scales roughly like growth rate.
 Dashed line shows best linear fit, as the model suggests.
 }
+\includegraphics{propfig2.pdf}
 \label{gr-fl-fig}
-\end{figure}
+\end{SCfigure}
 \begin{figure}[h]
 \includegraphics{propfig3.pdf}
-\caption{Dependence of promoter activity and protein level on growth rate under different growth media for various promoters.
-Left column shows promoter activity (as deduced from protein accumulation rates).
+\caption{Dependence of promoter activity and protein level in \emph{S.Cerevisiae} on growth rate under different growth media for various promoters.
+Left column shows promoter activity (as deduced from protein accumulation rate).
 Right column shows protein levels.
 Dashed lines in left/right columns show best square/linear fit respectively, as the model suggests.
 }
