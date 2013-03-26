@@ -255,25 +255,20 @@ To test this hypothesis, we tracked the growth of \emph{E.Coli} in a batch cultu
 The strain grown had a plasmid (pTAC) containing two fluorescent reporter genes (YFP and mCherry).
 At any time-point we calculated the growth rate, the protein accumulation rate (that serves as a proxy for the promoter activity) and the protein level for each of the proteins.
 The results are shown in figure \ref{time-gr-fig}.
-We identified two phases of relatively constant growth rate, fast growth and slow growth, as can be seen in the figure.
-The relative abundance and accumulation rate of the two proteins are maintained in between these two phases.
-However, the absolute level of the proteins scales like the growth rate whereas the accumulation rate scales like the growth rate squared.
-This initial result thus validates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
+Panels D and E show that over a significant range of growth rates (0.45-0.65) the protein level and promoter activity remain relatively constant when normalized by the growth rate and the growth rate squared (as is predicted by our model).
+This initial result thus indicates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
 It should be noted that as the two genes where part of the same operon, this result is still lacking as it does not monitor the ratio between two different, unregulated promoters.
 \begin{figure}[h]
-\includegraphics{propfig1.pdf}
+\includegraphics{propfig1_alt.pdf}
 \caption{Inter-dependence of growth rate, protein level and protein accumulation rate follow theoretical model predictions when tracked over time in a batch culture.
 All values where calculated by averaging over 18 measurement point windows spanning 2.5 hours.
-(A) Growth rate as a function of time.
-Two phases of relatively constant growth are marked for convenience - Maximal growth and slow growth.
-The growth rate changes by a factor of about 2/3 between the two phases.
-(B) Protein level per OD as a function of time.
+(A) Raw measurements of fluorescent levels and OD over time shows correlation of expression with growth.
+(B) Protein level per OD vs. growth rate shows a generaly increasing trend.
 The ratio between the levels of the two proteins remains relatively constant and is approximately 2:1.
-The absolute level per OD of each protein decreases during the same time, and in the same proportion as the growth rate.
-(C) Protein accumulation rate per OD as a function of time.
-Changes in the accumulation rate per OD (reflecting changes in promoter activity) precede changes in growth rate and protein level by about 1.5 hours.
-The ratio between the accumulation rate of the two proteins remains relatively constant and is approximately 2:1
-Changes in accumulation rate per OD are proportional to the square of the changes in growth rate ($2/3^2=4/9)$.}
+(C) Protein accumulation rate per OD vs. growth rate shows an increasing trend.
+The ratio between the accumulation rate of the two proteins remains relatively constant and is approximately 2:1.
+(D)
+(E)
 \label{time-gr-fig}
 \end{figure}
 \subsection{Promoter activity scales superlinearly with growth rate for some non-ribosomal promoters}
