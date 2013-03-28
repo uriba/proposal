@@ -36,12 +36,21 @@ main = do
     mes_fl2 <- get_fls2 mes_well
 
 ---------------
-    let abs_times = getTimesFromUtc . asMes $ mes_abs
-    let abs_vals = map (show . mVal) . V.toList . V.map snd $ asMes mes_abs
-    let fl1_times = getTimesFromUtc . flMes $ mes_fl1
-    let fl1_vals = map (show . mVal) . V.toList . V.map snd $ flMes mes_fl1
-    let fl2_times = getTimesFromUtc . flMes $ mes_fl2
-    let fl2_vals = map (show . mVal) . V.toList . V.map snd $ flMes mes_fl2
+
+    let normalized_abs = normalizeFromInit mes_abs
+    let normalized_fl1 = normalizeFromInit mes_fl1
+    let normalized_fl2 = normalizeFromInit mes_fl2
+
+    let trimmed_abs = trim . snd . absoluteToRelativeTime . asMes $ normalized_abs
+    let maxtime = fst . V.last $ trimmed_abs
+    let trimmed_fl1 = V.takeWhile (\(t,_) -> t<=maxtime) . trim . snd . absoluteToRelativeTime . flMes $ normalized_fl1
+    let trimmed_fl2 = V.takeWhile (\(t,_) -> t<=maxtime) . trim . snd . absoluteToRelativeTime . flMes $ normalized_fl2
+    let abs_times = getTimes trimmed_abs
+    let fl1_times = getTimes trimmed_fl1
+    let fl2_times = getTimes trimmed_fl2
+    let abs_vals = map (show . nmVal) . V.toList . V.map snd $ trimmed_abs
+    let fl1_vals = map (show . nmVal) . V.toList . V.map snd $ trimmed_fl1
+    let fl2_vals = map (show . nmVal) . V.toList . V.map snd $ trimmed_fl2
     writeFile (file_name_prefix ++ "1.csv") $ printCSV [abs_times,abs_vals,fl1_times,fl1_vals,fl2_times,fl2_vals]
 
     

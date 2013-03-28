@@ -34,8 +34,8 @@ def set_ticks(a):
         t.label.set_fontsize(ticksize)
 
 fig = figure()
-fig.subplots_adjust(right=0.83,top=0.95,wspace=0.30,hspace=0.8)
-fig.set_size_inches(5,7)
+fig.subplots_adjust(right=0.83,top=0.95,wspace=0.30,hspace=0.8,bottom=0.05)
+fig.set_size_inches(5,6.7)
 fig.set_dpi(80)
 
 for (loc,gn,gd) in genes:
@@ -43,7 +43,7 @@ for (loc,gn,gd) in genes:
     for i in range(1,3):
         anums.append(ploti(gn+1,i))
 
-    fig.text(0.5,0.98-(float(loc)*0.92/6),gd,horizontalalignment='center',verticalalignment='top',fontsize = titlesize)
+    fig.text(0.5,0.98-(float(loc)*0.97/6),gd,horizontalalignment='center',verticalalignment='top',fontsize = titlesize)
     xs = []
     ys = []
     for i in range (0,len(anums[0])/2):
