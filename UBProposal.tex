@@ -2,6 +2,7 @@
 \usepackage{color,soul,amsmath,graphicx}
 \usepackage[outercaption]{sidecap}
 \usepackage[citestyle=authoryear]{biblatex}
+\usepackage[font=small,labelfont=bf]{caption}
 \sidecaptionvpos{figure}{c}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
@@ -10,7 +11,7 @@
     \setcounter{highnamepenalty}{0}
     \setcounter{lownamepenalty}{0}
 }
-\bibliography{library}
+\bibliography{library1}
 
 \title{Exploring the quantitative inter-dependence of proteome/transcriptome composition and growth rate in model microorganisms}
 \author{Uri Barenholz}
@@ -169,8 +170,8 @@ In light of this observation we aim to derive an “intrinsic”, growth-conditi
 A measure that, once determined, can be used to calculate the observed promoter activity for a given steady growth condition by taking into account the growth rate and proteome composition under this condition.
 \subsubsection{The passive allocation model}
 We explore a passive allocation model where, under any given growth condition, each promoter has some intrinsic ``strength'' or affinity.
-We suggest that constitutively expressed promoters be defined as having the same intrinsic strength under all growth conditions (where the current definition is having a constant transcription level).
-Furthermore, in our model, regulated promoters only have a few, discrete, transcriptionally controlled, intrinsic strengths (On-Off and rarely some intermediate states as well).
+We suggest that the loosely defined ``constitutively expressed'' promoters be concretely defined as having the same intrinsic strength under all growth conditions.
+Furthermore, in our model, regulated promoters are assumed to have only a few, discrete, transcriptionally controlled, intrinsic strengths (On-Off and rarely some intermediate states as well).
 For example, in our model, the Gal operon will have two transcriptional states: ``on'', with some intrinsic strength, when Galactose is present in the medium at sufficiently high concentration, and ``off'', with some intrinsic lower strength, when Galactose is absent from the medium.
 Notably, in our model, the Gal operon has only two intrinsic strengths and it does not span a continuum of activation strengths.
 We therefore state that for a regulated promoter, it will have the same intrinsic strength in between any two growth conditions between which its specific regulation remains unchanged.
@@ -187,8 +188,8 @@ We assume this machinery operates at its maximal capacity, which is also modulat
 The intrinsic strengths induce a partition function (or relative expression) of different genes with respect to one another and thus determine the final ratios between the different proteins.
 
 Formally, we define the intrinsic strength, or activity, of promoter $i$ under condition $c$ as:
-\[\Gamma^c_i=\delta_i+a^c_i\beta_i ; a^c_i\in \{a_i\}\]
-where $\delta_i$ is the promoter basal level and, for each promoter with active regulation, there is a maximal activation level of $\delta_i+\beta_i$ and a finite set of relative activation levels {0,...,1} out of which one, $a^c_i$, is used under condition $c$.
+\[\Gamma^c_i=\delta_i+a^c_i\beta_i\]
+where $\delta_i$ is the promoter basal level and, for each promoter with active regulation, there is a maximal activation level of $\delta_i+\beta_i$ and a finite set of relative activation levels \{0,...,1\} out of which one, $a^c_i$, is used under condition $c$.
 We note that such an intrinsic strength value, $\Gamma^c_i$, can be the result of RNA-polymerase affinity (that can be discretely modulated by the binding of transcription factors) or other (non-context dependent) mechanisms.
 
 We postulate that, using equation \ref{pa-gr-relation}, the measured activity level of promoter $i$ under condition $c$ will be:
@@ -232,7 +233,7 @@ Substituting this result in the activity level equation (Equation \ref{cond-act}
 \label{ind-act}
 A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_i}{\Omega}\frac{\Omega}{\sum_{j}\Gamma^c_j}=r_c g_c^2\frac{t_{tr}}{\ln(2)}\frac{\Gamma^c_i}{\Omega}
 \end{equation}
-So the observed activity level depends linearly on the protein/biomass ratio ($r_c$), \emph{the square of the growth rate ($g_c$)}, some condition-independent constants ($t_{tr}$, $ln(2)$ and $\Omega$) and a condition specific intrinsic strength of the relevant promoter, namely: ${\Gamma^c_i}$.
+So the observed activity level depends linearly on the protein/biomass ratio ($r_c$), \emph{the square of the growth rate ($g_c$)}, some condition-independent constants ($t_{tr}$, $\ln(2)$ and $\Omega$) and a condition specific intrinsic strength of the relevant promoter, namely: ${\Gamma^c_i}$.
 For simplicity, intrinsic strengths can be normalized to $\Omega$ so that $\Gamma_i^{c'} = \frac{\Gamma^c_i}{\Omega}$.
 \subsubsection{Accounting for variable translation rates}
 \label{nonconst-trans}
@@ -241,41 +242,44 @@ Measurements suggest this is not necessarily the case \parencite{Liang2000}.
 We note that this assumption was used in one place, in the assertion that $t_{tr}$ is constant, as that is the only place where there is a direct connection between intrinsic strengths and translation times.
 Thus, relieving this assumption and instead assuming that the translation rate is some function of the growth rate, $f(g_c)$, one gets that the time the translation mechanism takes to translate itself is simply:
 \begin{equation}
-t_{tr}=\frac{T}{f(g_c)}
+t_{tr}=\frac{L_{tr}}{f(g_c)}
 \end{equation}
-Where $T$ is the size of the translation mechanism in amino-acids.
+Where $L_{tr}$ is the size of the translation mechanism per ribosome in amino-acids.
 Incorporating this term into the activity level equation (Equation \ref{ind-act}) we conclude that in such cases:
 \begin{equation}
-A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_i}{\Omega}\frac{\Omega}{\sum_{j}\Gamma^c_j}=r_c g_c^2\frac{T}{f(g_c)\ln(2)}\frac{\Gamma^c_i}{\Omega}
+A^c_i=r_c g_c \frac{\Gamma^c_i}{\sum_{j}\Gamma^c_j}=r_c g_c \frac{\Gamma^c_i}{\Omega}\frac{\Omega}{\sum_{j}\Gamma^c_j}=r_c g_c^2\frac{L_{tr}}{f(g_c)\ln(2)}\frac{\Gamma^c_i}{\Omega}
 \end{equation}
-Meaning the observed activity, on top of the dependencies already stated, is also \emph{inversely} dependent on the translation rate.
+Meaning the observed activity, on top of the dependencies already stated, is also \emph{inversely} dependent on the translation rate (as is suggested by \cite{Scott2010b}).
 It is reasonable to expect the dependence of the translation rate on the growth rate to be a monotonic, slowly increasing function.
 Therefore, the resulting final relation of the activity level to the growth rate should be a sub-quadratic relation.
 \subsubsection{Model summary and resulting predictions}
 We have developed a model that predicts the protein level and promoter activity for non-differentially regulated genes across conditions as a function of growth rate.
-Our model employs a 'feed-forward' strategy as was suggested in \parencite{Levy2009}.
+Our model agrees with a 'feed-forward' strategy as was suggested in \parencite{Levy2009}.
 It takes a top-down approach integrating global constraints and thus extends the analysis done in \parencite{Leeat2013} and \parencite{Maaloe1969} to include explicit dependence on growth rate.
 Our model suggests that:
 \begin{itemize}
-\item Promoter activity, given that no differential regulation is at play, scales like the growth rate squared.
-\item Protein level, under such conditions, scales like the growth rate.
+\item Promoter activity per biomass, given that no differential regulation is at play, scales like the growth rate squared.
+\item Protein level per biomass, under such conditions, scales like the growth rate.
 \end{itemize}
 These results are contradictory to the results stated by \parencite{Klumpp2009a} and \parencite{Scott2010b}, who suggest that the level of a non-regulated protein should decrease with growth rate.
 Our model is supported by observations that the ribosomal synthesis rate scales quadratically with growth rate \parencite{Zaslaver2009a} and that ribosomal protein fraction scales linearly with growth rate \parencite{Maaloe1969,ingraham1983growth}.
-Moreover, it implies that these relations extend beyond the well-studied ribosomal proteins to all non-regulated proteins across all growth conditions.
+Moreover, it implies that these relations extend beyond the well-studied ribosomal proteins to all non specifically regulated proteins across all growth conditions.
 These relations should also apply to regulated genes across conditions in which they are not differentially regulated.
 It thus adds additional explanation to the mechanisms already given for the observed dependence of ribosomal protein synthesis and levels as a function of growth rate \parencite{Zaslaver2009a}.
-Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activity and resulting protein levels, as is claimed by \parencite{Berthoumieux2013,Leeat2013,loven2012,Scott2010b,Klumpp2009a} and to add a new quantitative assessment to this effect.
+Our research plan is to use this model to test the hypothesis that global cellular parameters play in fact a larger role than previously appreciated in determining promoter activity and resulting protein levels, in agreement with the claims made by \parencite{Berthoumieux2013,Leeat2013,loven2012,Scott2010b,Klumpp2009a} and to add a new quantitative assessment to this effect.
 \section{Preliminary experimental results}
-\subsection{Initial measurements of growth rate, protein level and promoter activity follow model predictions when tracked over time}
-One of the results of our analysis is that intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
-However, protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
-To test this hypothesis, we tracked the growth of \emph{E.coli} in a batch culture growing in M9 minimal media with 0.2\% glucose.
+\subsection{Initial measurements of growth rate, protein level and promoter activity of a cell culture follow model predictions when tracked over time}
+The key observations of the proposed model are that protein level should scale like the growth rate, while promoter activity should scale like the growth rate squared.
+Moreover, intrinsic strengths suggest conservation of relative levels of protein and activities of promoters.
+To test these hypotheses, we tracked the growth of \emph{E.coli} in a batch culture growing in M9 minimal media with 0.2\% glucose.
 The strain grown had a plasmid (pTAC) containing two fluorescent reporter genes, YFP and mCherry.
 At any time-point we calculated the growth rate, the protein accumulation rate (that serves as a proxy for the promoter activity) and the protein level (see \ref{methods}).
 The results are shown in figure \ref{time-gr-fig}.
-Panels (E) and (F) show that over a significant range of growth rates (0.45-0.65)[Dbl/Hour] the protein level and promoter activity remain relatively constant when normalized by the growth rate and the growth rate squared, respectively (as is predicted by our model).
-This very initial result thus indicates the ability of our experimental system and analysis to quantify the relevant effects and shows one of the predictions of our model at play.
+Panel (A) shows the raw measurements of fluorescence and Optical Density at 600nm.
+Panel (B) shows the calculated growth rate throughout growth.
+Panels (C) and (D) show the protein level per OD and protein accumulation rate per OD as a function of growth rate (respectively).
+Finally, panels (E) and (F) show that over a significant range of growth rates (0.45-0.65)[Dbl/Hour] the protein level and promoter activity remain relatively constant when normalized by the growth rate and the growth rate squared, respectively (as is predicted by our model).
+This very initial result thus indicates the ability of our experimental system and analysis to quantify the relevant effects and shows a few of the predictions of our model at play.
 \begin{figure}[h]
 \includegraphics{propfig1_alt.pdf}
 \caption{Inter-dependence of growth rate, protein level and protein accumulation rate follow theoretical predictions when tracked over time in an \emph{E.coli} batch culture.
@@ -288,17 +292,16 @@ Growth rate, protein level and protein accumulation rate values were calculated 
 (F) Dividing the protein accumulation rate by the growth rate squared reveals a constant (normalized) level for growth rates in the range (0.45,0.65)[Dbl/Hour], following the theoretical prediction.
 (C)-(F) The ratio between the two fluorescent proteins remains the same throughout growth.
 (D),(F) Protein accumulation rate was manually time-shifted by 1.5 hours to fit growth rate.
-The observed shift may be the result of protein maturation time or of delay between changes in activity and changes in growth rate.
+The observed shift may be the result of protein maturation time or of delay between changes in activity and changes in growth rate and will be further investigated in the future.
 (E),(F) Horizontal lines serve as a guide to the eye.
 }
 \label{time-gr-fig}
 \end{figure}
 \subsection{Promoter activity scales superlinearly with growth rate for some non-ribosomal promoters}
-\label{methods}
-In an initial attempt to test our model's predictions we conducted an experiment in which seven strains of \emph{S.cerevisiae}, each one containing a different promoter fused to a fluorescent reporter gene, were grown in a 96-well plate with the optical density and fluorescence monitored over time.
+In an initial attempt to test our model's predictions Leeat Keren and I conducted an experiment in which seven strains of \emph{S.cerevisiae}, each one containing a different promoter fused to a fluorescent reporter gene, were grown in a 96-well plate with the optical density and fluorescence monitored over time.
 The strains were grown in six different media, differing in carbon source and availability of amino acids.
-For each strain the maximal growth rate, promoter activity and protein level (during the maximal growth rate time) where calculated.
-The results for one of the promoters (PAB1, mRNA polyA binding protein) is plotted in figure \ref{gr-fl-fig}.
+For each strain the maximal growth rate, promoter activity and protein level (during the maximal growth rate time) were calculated.
+The results for one of the promoters (PAB1, mRNA polyA binding protein) are plotted in figure \ref{gr-fl-fig}.
 It should be noted that the data analysis is still preliminary and quality control measures, as well as more adequate methods for identifying trends should be employed in the data processing procedure.
 However, even under the initial analysis done, promoter activity shows a superlinear relation to growth rate, whereas protein level follows a more linear trend.
 Figure \ref{gr-fl-mult} shows the data for the other promoters monitored.
@@ -322,33 +325,37 @@ Dashed lines in left/right columns show best square/linear fit respectively, as 
 \label{gr-fl-mult}
 \end{figure}
 \section{Methods}
+\label{methods}
 In the initial results presented, and in future work we are using the following methods:
 
 Promoter activity and protein level are estimated based on promoter-reporter fusion libraries.
-Such libraries exist for \emph{E.coli} (in the Alon lab) and for \emph{S.cerevisiae} (in the Segal lab).
+Such libraries exist for \emph{E.coli} (in the Alon lab, where we are collaborating with Guy Aidelberg) and for \emph{S.cerevisiae} (in the Segal lab, where we are collaborating with Leeat Keren).
 
 Growth rate is modified by use of different carbon sources and addition or omission of amino acids to the media.
 Current planned carbon sources for \emph{S.cerevisiae} are Glucose, Fructose, Galactose, Glycerol and Ethanol.
 For \emph{E.coli} the carbon sources are still to be determined.
 One key requirement for the selected growth media is spanning of a relatively wide range of growth rates in a relatively continuous manner.
 
-Measurements take place by tracking optical density and fluorescence in 96-well plates using a spectrophotometer.
+Measurements take place by tracking optical density (at 600nm) and fluorescence in 96-well plates using a spectrophotometer.
+We are aware that this setup might cause limitations in terms of achieving balanced growth due to oxygen supply issues and other factors.
+I will try to find alternative approaches to use as ``gold standard'' benchmarks that do not suffer these limitations.
 
-Visualizations are made using matplotlib \parencite{Hunter2007}.
+Visualizations are made using the open source matplotlib \parencite{Hunter2007}.
 
 Growth rate is determined in the following way:
-First the background value is determined from the first few measurements of each well.
+First the background value is determined from the first few measurements of each well (after checking that it is relatively constant).
 The well-specific background value is then subtracted from all the measurements of that well.
-The logarithm of the resulting OD values is calculated.
-A linear fit on a sliding window of length 2.5 hours is calculated and the resulting slope is the growth rate.
+The logarithm of the resulting background subtracted OD values is calculated.
+A linear fit on a sliding window of length 2.5 hours is calculated and the resulting slope is interpreted as the growth rate, so that for each time-window: $\ln(\text{OD}(t))=at+b\rightarrow\text{OD}(t)=e^be^{at}$ (e.g. figure \ref{time-gr-fig}(B)).
+The length of window used will be further investigated in the future.
 
-For cultures where a single (and not time-varying) growth rate is needed, the relevant window of measurements is the one starting when the detected OD signal is higher than three times the standard deviation of measurements of a well containing only media.
+For cultures where a single (and not time-varying) growth rate is needed (as is the case when comparing different growth media), the relevant window of measurements is the one starting when the detected OD signal is higher than three times the standard deviation of measurements of a well containing only media.
 
 Protein level is calculated by first employing a sliding window mechanism similar to the one used for growth rate.
-The resulting fitting parameters are used to characterize the fluorescence level in the well during the relevant time window.
-Dividing the fitted fluorescence level by the fitted OD yields the protein level per OD.
+The resulting fitting parameters (slope and interception point, such that: $\ln(\text{fl}(t))=at+b$) are used to characterize the fluorescence level in the well during the relevant time window as an exponential function, so that $\text{fl}(t)=e^be^{at}$.
+Dividing the fitted fluorescence level by the fitted OD yields the protein level per OD, $p$, that is: $p(t)=\frac{\text{fl}(t)}{\text{OD}(t)}$.
 
-Protein accumulation rate uses the same fitting strategy as described for protein level, but instead of dividing the fitted fluorescence by the fitted OD, the increase in the fitted fluorescence throughout the relevant window is divided by the integral of the fitted OD over that window.
+Protein accumulation rate uses the same fitting strategy as described for protein level, but instead of dividing the fitted fluorescence by the fitted OD, the increase in the fitted fluorescence throughout the relevant window is divided by the integral of the fitted OD over that window such that: $A(t)=\frac{\text{fl}(t+\Delta t)-\text{fl}(t)}{\int_t^{t+\Delta t}\text{OD}(t)dt}$.
 
 The algorithms underlying these calculations will go through further development as the research progresses.
 \urlstyle{rm}
